@@ -1,67 +1,115 @@
 # remix
 
-A Claude Code plugin that turns the agent into a Remix v3 expert. Bundled as a plugin with 14 progressive-disclosure sub-skills covering every layer of the framework: routing, controllers, data, auth, middleware, UI, testing, and scaffolding.
+![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-7c3aed)
+![Remix v3](https://img.shields.io/badge/Remix-v3-000000)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-## What this is
+A Claude Code plugin that turns the agent into a **Remix v3 expert**. 14 progressive-disclosure sub-skills covering every layer of the framework — routing, controllers, data, auth, middleware, UI, testing, and scaffolding — plus two runnable example apps and a set of Bun-powered scaffolders.
 
-Remix v3 is a standalone full-stack TypeScript framework. The `remix` meta-package re-exports everything via subpath imports — `remix/fetch-router`, `remix/data-table`, `remix/auth`, `remix/ui`, and so on. This plugin loads automatically when Claude sees a Remix v3 project, and can be invoked manually with `/remix`.
+## Why this exists
+
+Remix v3 is a *standalone* full-stack TypeScript framework — its own router, data layer, validation, auth, UI runtime, and test framework. The shape of an app is unlike Remix v2 or any React framework. Without prior context, an LLM coding agent will reach for v2 patterns or invent APIs. This plugin gives Claude the right map of v3 the moment it sees one.
 
 ## Install
 
-Add this repo to a Claude Code marketplace, or symlink/copy it into `~/.claude/plugins/`:
+### Option A — via marketplace (recommended)
+
+```text
+/plugin marketplace add arijit-gogoi/ari-marketplace
+/plugin install remix@ari-marketplace
+```
+
+### Option B — direct from this repo
+
+```text
+/plugin install github:arijit-gogoi/remix-plugin
+```
+
+### Option C — manual symlink (development)
 
 ```pwsh
-# Quick local install (PowerShell)
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\plugins\remix" -Target "$PWD"
+git clone https://github.com/arijit-gogoi/remix-plugin.git
+New-Item -ItemType SymbolicLink -Path "$HOME\.claude\plugins\remix" -Target "$PWD\remix-plugin"
 ```
 
-## Layout
+After install, restart Claude Code. The plugin auto-loads on Remix v3 projects (anything with `app/routes.ts`, `app/router.ts`, or a `remix` dep in `package.json`) and on the `/remix` command.
+
+## What you get
+
+| Topic | What it covers |
+|-------|----------------|
+| **routing** | `route()`, `form()`, `resources()`, verb helpers, params, wildcards |
+| **controllers** | `Controller<typeof routes.X>`, actions, context, `get(Key)` |
+| **data-table** | tables, columns, queries, joins, transactions, adapters (SQLite/Postgres/MySQL) |
+| **data-schema** | `s.parse` / `parseSafe`, `f.object`, validation checks, coercion |
+| **auth** | credentials, Google/GitHub/Microsoft/Okta/Auth0 OAuth, `requireAuth` |
+| **sessions** | `Session`, storage backends (cookie/memory/fs/redis/memcache), flash |
+| **cookies** | `createCookie`, signing, secret rotation playbook |
+| **middleware** | logger, compression, staticFiles, formData, methodOverride, asyncContext, ordering |
+| **forms-uploads** | `parseFormData`, `uploadHandler`, multipart internals, limits |
+| **file-storage** | fs / memory / S3 backends |
+| **ui-framework** | JSX runtime, setup-then-render model, `renderToStream`, hydration |
+| **testing** | `remix/test`, `router.fetch`, mocks, e2e with Playwright |
+| **scaffolding** | `remix new` / `doctor` / `routes`, Bun scripts |
+| **migrations** | `createMigration`, DDL helpers, runner, zero-downtime strategies |
+
+Each sub-skill is a SKILL.md plus 2–4 progressive-disclosure references docs. Claude loads only what the current task needs.
+
+## Example apps
+
+- [`examples/minimal/`](./examples/minimal) — smallest viable Remix v3 app (5 files).
+- [`examples/bookstore-mini/`](./examples/bookstore-mini) — focused slice of the official bookstore demo: routes, middleware stack, SQLite data-table, session-backed cart, admin CRUD with form validation.
+
+```pwsh
+cd examples/bookstore-mini
+npm install
+npm run dev     # http://localhost:3000
+```
+
+## Bun scaffolders
+
+```pwsh
+bun run scripts/init-project.ts     --name my-app
+bun run scripts/create-route.ts     --name about --pattern /about
+bun run scripts/create-resource.ts  --name reviews --param reviewId
+bun run scripts/create-migration.ts --name add_reviews_table
+bun run scripts/add-middleware.ts   --name session
+```
+
+Each script is idempotent, refuses to overwrite, and prints exactly what it changed.
+
+## Project layout
 
 ```
-remix/
-├── .claude-plugin/
-│   └── plugin.json
+remix-plugin/
+├── .claude-plugin/plugin.json
 ├── skills/
-│   ├── routing/           — route(), form(), resources(), patterns, params
-│   ├── controllers/       — Controller<...> type, actions, context, get(), redirect()
-│   ├── data-table/        — tables, columns, queries, adapters, transactions
-│   ├── data-schema/       — s.parse, f.object, validation checks, error handling
-│   ├── auth/              — credentials, OAuth (Google/GitHub), session auth scheme
-│   ├── sessions/          — Session, createCookieSessionStorage, session middleware
-│   ├── cookies/           — createCookie, signing, parse, serialize
-│   ├── middleware/        — logger, compression, static, methodOverride, asyncContext
-│   ├── forms-uploads/     — parseFormData, uploadHandler, multipart
-│   ├── file-storage/      — fs, memory, s3 backends; set/get/remove
-│   ├── ui-framework/      — JSX runtime, components without hooks, renderToStream
-│   ├── testing/           — remix/test, assertions, mocks, e2e with Playwright
-│   ├── scaffolding/       — npx remix new, remix doctor, remix routes
-│   └── migrations/        — createMigration, schema DDL, migration runner
-├── scripts/               — Bun-powered scaffolders (create-route, add-controller, …)
-├── examples/
-│   ├── minimal/           — server.ts + routes.ts + controller — smallest viable app
-│   └── bookstore-mini/    — adapted slice of the official bookstore demo
-└── assets/                — boilerplate templates copied by scripts
+│   ├── remix/SKILL.md                  ← top-level entrypoint
+│   └── 14 sub-skill subdirectories     ← each with SKILL.md + references/*.md
+├── scripts/                             ← Bun scaffolders
+└── examples/
+    ├── minimal/
+    └── bookstore-mini/
 ```
-
-## How discovery works
-
-The top-level `skills/` directory contains one SKILL.md per topic. Each `description` field tells Claude precisely when to load that sub-skill, and each SKILL.md links into its own `references/*.md` for deeper APIs. Progressive disclosure — only what's needed lands in the context window.
-
-## Examples
-
-- `examples/minimal/` — the absolute minimum Remix v3 app: server, router, one route.
-- `examples/bookstore-mini/` — a slice of the official `remix-run/remix/demos/bookstore`, showing controllers, data-table, sessions, and the render pipeline together.
-
-The full official demos live at `remix-run/remix/demos/bookstore` and `remix-run/remix/demos/social-auth`. This plugin links to them rather than duplicating them.
 
 ## Conventions
 
 - All imports use the `remix/<subpath>` form — never `@remix-run/<pkg>`.
 - All examples use Node ≥ 24.3.0 and `tsx` for the dev loop, matching the official bootstrap template.
-- Scaffolding scripts are written for Bun (`bun run scripts/<name>.ts`).
+- Scaffolding scripts run under Bun (or Node ≥ 22.6 with `--experimental-strip-types`).
 
 ## A note on accuracy
 
-Reference snippets and example code reflect the framework as Remix v3 stabilised. Some specific symbol signatures (operator helpers, return shapes, capability flags) describe the public surface as documented. Before relying on any specific snippet, verify against the installed package version — `npm view remix exports` and reading the `remix/<subpath>` types are the fastest ways to confirm.
+Reference snippets and example code describe the framework's public surface. Before relying on any specific snippet, verify against the installed package version — reading the `remix/<subpath>` types is the fastest confirmation. If you spot a divergence between this plugin and the installed framework, the framework wins. [Open an issue](https://github.com/arijit-gogoi/remix-plugin/issues) or send a patch.
 
-If you spot a divergence between this plugin and the installed framework, the framework wins. Open an issue or send a patch.
+## Contributing
+
+Issues and PRs welcome. Useful contributions:
+
+- Corrections to API signatures that have drifted since this plugin was written
+- New reference docs for topics that emerge after stable release
+- Additional example apps showcasing patterns this plugin doesn't yet cover
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
