@@ -1,0 +1,21 @@
+{
+  "name": "remix",
+  "version": "0.1.0",
+  "description": "Comprehensive Remix v3 reference: routing, controllers, data-table, data-schema, auth, sessions, cookies, middleware, forms & uploads, file-storage, UI framework, testing, scaffolding, and migrations. Triggered when working in a Remix v3 codebase or when the user invokes /remix.",
+  "author": {
+    "name": "Ari"
+  },
+  "license": "MIT",
+  "keywords": [
+    "remix",
+    "remix-v3",
+    "remix-run",
+    "fetch-router",
+    "data-table",
+    "data-schema",
+    "ssr",
+    "fullstack",
+    "typescript",
+    "bun"
+  ]
+}

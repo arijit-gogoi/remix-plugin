@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.DS_Store
+Thumbs.db
+*.log
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+db/*.sqlite
+db/*.sqlite-journal
+tmp/
+.cache/
+coverage/
