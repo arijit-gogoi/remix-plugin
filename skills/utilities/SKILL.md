@@ -13,7 +13,7 @@ The small built-ins Remix ships besides middlewares and routing. Each is a focus
 |---|---|---|
 | **html-template** | `remix/html-template` | Safe HTML templating with auto-escaping. See [templating](../templating/SKILL.md). |
 | **headers** | `remix/headers` | Typed parsers for Accept, CacheControl, Cookie, Range, etc. See [headers](../headers/SKILL.md). |
-| **assets** | `remix/assets` | On-demand JS/TS/CSS compilation. See [assets](../assets/SKILL.md). |
+| **assets** | `remix/assets` | On-demand JS/TS/CSS compilation. See [build](../build/SKILL.md). |
 | **mime** | `remix/mime` | Content-type detection from filename or magic bytes |
 | **lazy-file** | `remix/lazy-file` | `LazyFile` / `LazyBlob` — File-shaped objects that defer content reads |
 | **fs** | `remix/fs` | Node `fs` wrappers — `openLazyFile`, `writeFile` returning `LazyFile`s |

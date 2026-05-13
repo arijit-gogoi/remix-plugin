@@ -1,11 +1,13 @@
 ---
-name: remix-assets
-description: Browser asset compilation in Remix v3 via remix/assets — on-demand TS/JS and CSS compilation, file mapping with allow/deny access control, source maps, fingerprinted URLs for cache-busting, dev watch mode, and integration with the router. Replaces Vite/esbuild for serving compiled browser assets. Load when configuring the asset pipeline, serving compiled JS/CSS from app/ or node_modules, setting up dev vs prod asset caching, or migrating from a separate bundler.
+name: remix-build
+description: Build pipeline in Remix v3 — primarily remix/assets (createAssetServer for on-demand JS/TS/CSS compilation, file mapping, allow/deny access control, source maps, fingerprinted URLs for cache-busting, dev watch mode), plus production build concerns (env injection, source-map strategy, fingerprinting for cache-busting, deploy artifacts). Replaces Vite/esbuild/webpack for most setups. Load when configuring the build/asset pipeline, setting up dev vs prod, serving compiled JS/CSS, migrating from a separate bundler, or wondering how to ship a Remix v3 app to production.
 ---
 
-# Assets
+# Build
 
-`remix/assets` is the asset pipeline. It compiles browser-targeted TS/JS and CSS on demand and serves them from your router. Replaces a separate bundler (Vite, esbuild, webpack) for most use cases.
+The Remix v3 build pipeline. Today, this is dominated by `remix/assets` — on-demand TS/JS and CSS compilation served straight from the router. There's no separate bundler step, no `dist/` directory, no `vite build`.
+
+Replaces Vite, esbuild, webpack, parcel for most setups.
 
 ## Imports
 

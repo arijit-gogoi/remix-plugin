@@ -185,7 +185,7 @@ If you don't want the JSX runtime — small endpoints, emails, fragments returne
 
 ## Build pipeline
 
-The JS/CSS that hydrates these components is compiled and served by [assets](../assets/SKILL.md) (`createAssetServer`). Configure it once per project — replaces Vite/esbuild.
+The JS/CSS that hydrates these components is compiled and served by the [build](../build/SKILL.md) pipeline (`createAssetServer`). Configure it once per project — replaces Vite/esbuild.
 
 ## Further reading
 
@@ -193,4 +193,4 @@ The JS/CSS that hydrates these components is compiled and served by [assets](../
 - `references/jsx-runtime.md` — `RemixElement`, intrinsic tags, props
 - `references/streaming-ssr.md` — `renderToStream`, frames, fallbacks
 - `references/client-hydration.md` — `hydrate`, partial hydration, islands
-- See also: [templating](../templating/SKILL.md) (HTML without JSX), [assets](../assets/SKILL.md) (asset pipeline)
+- See also: [templating](../templating/SKILL.md) (HTML without JSX), [build](../build/SKILL.md) (asset pipeline)
