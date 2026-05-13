@@ -40,10 +40,15 @@ git clone https://github.com/arijit-gogoi/remix-plugin.git
 | **auth** | credentials, Google/GitHub/Microsoft/Okta/Auth0 OAuth, `requireAuth` |
 | **sessions** | `Session`, storage backends (cookie/memory/fs/redis/memcache), flash |
 | **cookies** | `createCookie`, signing, secret rotation playbook |
-| **middleware** | logger, compression, staticFiles, formData, methodOverride, asyncContext, ordering |
+| **security** | CSRF (`csrf()`), Cross-Origin Protection (`cop()`), CORS (`cors()`) |
+| **middlewares** | reference card for every shipped middleware, canonical ordering |
 | **forms-uploads** | `parseFormData`, `uploadHandler`, multipart internals, limits |
 | **file-storage** | fs / memory / S3 backends |
 | **ui-framework** | JSX runtime, setup-then-render model, `renderToStream`, hydration |
+| **templating** | `html\`...\`` safe-HTML template tag — for responses without JSX |
+| **headers** | typed parsers for Accept, CacheControl, Cookie, Range, etc. |
+| **assets** | `createAssetServer` — on-demand JS/TS/CSS compilation (replaces Vite) |
+| **utilities** | reference card for mime, lazy-file, fs, tar-parser, terminal, node-serve, fetch-proxy |
 | **testing** | `remix/test`, `router.fetch`, mocks, e2e with Playwright |
 | **scaffolding** | `remix new` / `doctor` / `routes`, Bun scripts |
 | **migrations** | `createMigration`, DDL helpers, runner, zero-downtime strategies |

@@ -183,8 +183,22 @@ return Response.json({ ok: true })
 
 `routes.X.href(params?)` produces a typed URL. Always prefer it over hand-rolled paths — the compiler will tell you when you've broken a link.
 
+## Returning HTML without JSX
+
+For small endpoints (webhooks, RSS, email previews), skip the JSX pipeline and use the `html` tagged template:
+
+```ts
+import { html } from 'remix/html-template'
+import { createHtmlResponse } from 'remix/response/html'
+
+return createHtmlResponse(html`<h1>Hello ${name}</h1>`)
+```
+
+See [templating](../templating/SKILL.md) for the full story.
+
 ## Further reading
 
 - `references/controller-types.md` — `Controller<Routes, Context>`, action shape, nested mirror rules
 - `references/render-utility.md` — building `app/utils/render.tsx` around `renderToStream`
 - `references/context-keys.md` — the standard set of `Key`s exposed by built-in middleware
+- See also: [templating](../templating/SKILL.md) (HTML responses without JSX), [headers](../headers/SKILL.md) (typed parsers for Accept, CacheControl, etc.)

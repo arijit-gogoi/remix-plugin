@@ -25,9 +25,13 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 | Parse forms (including file uploads), wire `parseFormData` / `formData()` | [forms-uploads](../forms-uploads/SKILL.md) |
 | Persist uploaded files to disk, memory, or S3 | [file-storage](../file-storage/SKILL.md) |
 | Build pages, write JSX without React, use `renderToStream`, the Document shell | [ui-framework](../ui-framework/SKILL.md) |
+| Build HTML responses without JSX — safe-escaped `html\`...\`` template tag | [templating](../templating/SKILL.md) |
+| Parse / build typed HTTP headers — Accept, CacheControl, Cookie, Range, etc. | [headers](../headers/SKILL.md) |
+| Compile and serve browser JS/TS/CSS (replaces Vite/esbuild) | [assets](../assets/SKILL.md) |
 | Write unit, integration, and Playwright e2e tests | [testing](../testing/SKILL.md) |
 | Bootstrap a new project, run `remix new` / `doctor` / `routes` | [scaffolding](../scaffolding/SKILL.md) |
 | Define and apply schema migrations | [migrations](../migrations/SKILL.md) |
+| Find the smaller built-ins — mime, lazy-file, fs, tar, terminal, node-serve, fetch-proxy | [utilities](../utilities/SKILL.md) |
 
 ## Don't reach for these — Remix bundles them
 
@@ -46,6 +50,13 @@ Before installing a third-party dep in a Remix v3 project, check whether Remix a
 | csurf, lusca (CSRF) · helmet (security headers) · cors (CORS) | `remix/csrf-middleware` · `remix/cop-middleware` · `remix/cors-middleware` | [security](../security/SKILL.md) |
 | compression, morgan, serve-static, sirv | `remix/compression-middleware` · `remix/logger-middleware` · `remix/static-middleware` | [middlewares](../middlewares/SKILL.md) |
 | vitest, jest, supertest | `remix/test` + `remix/assert` (driven via `router.fetch(new Request(...))`) | [testing](../testing/SKILL.md) |
+| Vite, esbuild, webpack, parcel (just for compiling browser JS/CSS) | `remix/assets` — `createAssetServer` compiles on demand | [assets](../assets/SKILL.md) |
+| handlebars, ejs, mustache, lit-html (server-side HTML strings) | `remix/html-template` — `html\`...\`` with auto-escaping | [templating](../templating/SKILL.md) |
+| accepts, negotiator, cache-control-parser, range-parser, set-cookie-parser | `remix/headers` — typed parsers for every RFC header | [headers](../headers/SKILL.md) |
+| chalk, kleur, picocolors, ansi-styles | `remix/terminal` — ANSI styling + color detection | [utilities](../utilities/SKILL.md) |
+| mime, mime-types, mime-db | `remix/mime` — detection + compressibility check | [utilities](../utilities/SKILL.md) |
+| tar, tar-stream | `remix/tar-parser` — streaming archive parser | [utilities](../utilities/SKILL.md) |
+| http-proxy, http-proxy-middleware | `remix/fetch-proxy` — `createFetchProxy` | [utilities](../utilities/SKILL.md) |
 | React (for the UI layer) | `remix/ui` JSX runtime + `remix/ui/<component>` library (accordion, button, combobox, menu, popover, select, …) | [ui-framework](../ui-framework/SKILL.md) |
 
 The pattern: search `node_modules/remix/dist/` (or `npm view remix exports`) before adding a dep.

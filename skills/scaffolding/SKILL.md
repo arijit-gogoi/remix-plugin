@@ -157,8 +157,13 @@ server.listen(Number(process.env.PORT ?? 3000), () => {
 
 For an integrated example, see `examples/minimal/` and `examples/bookstore-mini/` in this plugin.
 
+## Asset pipeline
+
+Once your project is bootstrapped, the JS/TS/CSS pipeline runs through [assets](../assets/SKILL.md) (`createAssetServer`). You don't need Vite/esbuild — `remix/assets` compiles on demand and integrates directly with the router.
+
 ## Further reading
 
 - `references/cli-reference.md` — every CLI flag, every subcommand
 - `references/bootstrap-layout.md` — annotated walk-through of what `remix new` produces
 - `references/local-scaffolders.md` — full reference for the Bun scripts shipped here
+- See also: [assets](../assets/SKILL.md) (asset compilation), [utilities](../utilities/SKILL.md) (terminal/fs/mime helpers)

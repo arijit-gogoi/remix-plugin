@@ -179,9 +179,18 @@ The server renders the initial markup; `hydrate` wakes it up on the client witho
 | `className="x"`            | `mix={css({...})}` or `mix={cls('x')}`                    |
 | `React.memo`               | The framework doesn't re-render unless you call `update`  |
 
+## Alternative: tagged HTML templates
+
+If you don't want the JSX runtime — small endpoints, emails, fragments returned to HTMX-style clients — use [templating](../templating/SKILL.md) (`html\`...\``). It composes safely (auto-escaped) without a component tree.
+
+## Build pipeline
+
+The JS/CSS that hydrates these components is compiled and served by [assets](../assets/SKILL.md) (`createAssetServer`). Configure it once per project — replaces Vite/esbuild.
+
 ## Further reading
 
 - `references/component-model.md` — Handle, setup vs render, lifecycle
 - `references/jsx-runtime.md` — `RemixElement`, intrinsic tags, props
 - `references/streaming-ssr.md` — `renderToStream`, frames, fallbacks
 - `references/client-hydration.md` — `hydrate`, partial hydration, islands
+- See also: [templating](../templating/SKILL.md) (HTML without JSX), [assets](../assets/SKILL.md) (asset pipeline)
