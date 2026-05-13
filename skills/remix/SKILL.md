@@ -17,10 +17,11 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 | Write a `.tsx` controller, return responses, read context, params, FormData | [controllers](../controllers/SKILL.md) |
 | Talk to the database — tables, queries, joins, transactions, adapters | [data-table](../data-table/SKILL.md) |
 | Validate input with `s.parse` / `f.object` / `.pipe(min, max, email)` | [validation](../validation/SKILL.md) |
-| Add login: credentials, Google/GitHub/Okta OAuth, requireAuth middleware, CSRF protection | [auth](../auth/SKILL.md) |
+| Add login: credentials, Google/GitHub/Okta OAuth, requireAuth middleware | [auth](../auth/SKILL.md) |
 | Set up sessions, store user state, flash messages | [sessions](../sessions/SKILL.md) |
 | Configure cookies, signing, secret rotation | [cookies](../cookies/SKILL.md) |
-| Compose router middleware: logger, compression, staticFiles, methodOverride, asyncContext | [middleware](../middleware/SKILL.md) |
+| Harden against CSRF, configure CORS, COP (tokenless cross-origin protection) | [security](../security/SKILL.md) |
+| Compose router middleware stack — reference card of every shipped middleware | [middlewares](../middlewares/SKILL.md) |
 | Parse forms (including file uploads), wire `parseFormData` / `formData()` | [forms-uploads](../forms-uploads/SKILL.md) |
 | Persist uploaded files to disk, memory, or S3 | [file-storage](../file-storage/SKILL.md) |
 | Build pages, write JSX without React, use `renderToStream`, the Document shell | [ui-framework](../ui-framework/SKILL.md) |
@@ -42,8 +43,8 @@ Before installing a third-party dep in a Remix v3 project, check whether Remix a
 | multer, busboy, formidable | `remix/form-data-parser` + `remix/multipart-parser` (streaming, no memory blow-up) | [forms-uploads](../forms-uploads/SKILL.md) |
 | @aws-sdk/client-s3 (just for uploads), multer-s3 | `remix/file-storage-s3` (shared interface with fs/memory) | [file-storage](../file-storage/SKILL.md) |
 | express, fastify, hono | `remix/fetch-router` + `remix/node-fetch-server` | [routing](../routing/SKILL.md) · [controllers](../controllers/SKILL.md) |
-| compression, morgan, helmet (CSP/CSRF/CORS pieces) | `remix/compression-middleware` · `remix/logger-middleware` · `remix/cop-middleware` · `remix/csrf-middleware` · `remix/cors-middleware` | [middleware](../middleware/SKILL.md) |
-| serve-static, sirv | `remix/static-middleware` | [middleware](../middleware/SKILL.md) |
+| csurf, lusca (CSRF) · helmet (security headers) · cors (CORS) | `remix/csrf-middleware` · `remix/cop-middleware` · `remix/cors-middleware` | [security](../security/SKILL.md) |
+| compression, morgan, serve-static, sirv | `remix/compression-middleware` · `remix/logger-middleware` · `remix/static-middleware` | [middlewares](../middlewares/SKILL.md) |
 | vitest, jest, supertest | `remix/test` + `remix/assert` (driven via `router.fetch(new Request(...))`) | [testing](../testing/SKILL.md) |
 | React (for the UI layer) | `remix/ui` JSX runtime + `remix/ui/<component>` library (accordion, button, combobox, menu, popover, select, …) | [ui-framework](../ui-framework/SKILL.md) |
 

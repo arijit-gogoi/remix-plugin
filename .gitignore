@@ -14,3 +14,4 @@ tmp/
 .cache/
 coverage/
 package-lock.json
+.verify-cache/

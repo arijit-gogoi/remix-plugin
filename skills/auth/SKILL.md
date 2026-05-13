@@ -1,6 +1,6 @@
 ---
 name: remix-auth
-description: Authentication and CSRF protection in Remix v3 — credentials (email/password) flows, external OAuth/OIDC (Google, GitHub, Okta, Auth0, Microsoft, X, Facebook, Atmosphere), the auth() and requireAuth() middleware, createSessionAuthScheme, session-fixation-safe completeAuth(), and the csrf() middleware (synchronizer tokens + origin validation). Load when the user is building login/signup, adding social providers, protecting routes, debugging auth flows, or hardening forms against CSRF.
+description: Authentication (identity) in Remix v3 — credentials (email/password) flows, external OAuth/OIDC (Google, GitHub, Okta, Auth0, Microsoft, X, Facebook, Atmosphere), the auth() and requireAuth() middleware, createSessionAuthScheme, session-fixation-safe completeAuth(). For CSRF, COP, and CORS, see the security sub-skill. Load when the user is building login/signup, adding social providers, protecting routes, or debugging auth flows.
 ---
 
 # Auth
@@ -223,85 +223,13 @@ For OAuth providers that support a remote signout endpoint, call it before clear
 
 ## CSRF protection
 
-Authentication tells you *who* a request claims to be from. CSRF protection tells you *that the user actually meant to send it* — i.e. it didn't get triggered by a malicious page in another tab. `remix/csrf-middleware` ships a synchronizer-token implementation plus origin checks.
+Authentication tells you *who* a request claims to be from. CSRF protection tells you the user actually meant to send it. Different topic, different sub-skill — **see [security](../security/SKILL.md)** for `csrf()`, `cop()`, and `cors()`.
 
-```ts
-import { csrf, getCsrfToken } from 'remix/csrf-middleware'
-import { session } from 'remix/session-middleware'
-
-const router = createRouter({
-  middleware: [
-    session(sessionCookie, sessionStorage),   // must run before csrf()
-    csrf(),                                    // generates + validates tokens
-  ],
-})
-```
-
-Two requirements: `session()` runs before `csrf()` (the token lives in the session), and `formData()` runs before it too if you want to read tokens from form fields.
-
-### Embedding the token in a form
-
-```tsx
-import { getCsrfToken } from 'remix/csrf-middleware'
-
-function loginPage(ctx: RequestContext) {
-  const token = getCsrfToken(ctx)
-  return render(
-    <form method="post" action={routes.auth.login.action.href()}>
-      <input type="hidden" name="_csrf" value={token} />
-      <input name="email" />
-      <input name="password" type="password" />
-      <button type="submit">Sign in</button>
-    </form>
-  )
-}
-```
-
-### Token sources (default lookup order)
-
-1. Request headers: `x-csrf-token`, `x-xsrf-token`, `csrf-token`
-2. Form field: `_csrf` (needs `formData()` middleware)
-3. Query param: `_csrf` (compatibility — avoid if you control the client; tokens leak into logs and history)
-
-### Safe methods bypass the check
-
-By default `GET`, `HEAD`, and `OPTIONS` skip token validation — they're meant to be idempotent. Anything else (`POST`/`PUT`/`PATCH`/`DELETE`) is "unsafe" and requires a valid token.
-
-### Origin validation
-
-Unsafe requests also get an `Origin` / `Referer` check. Same-origin by default. To allow specific cross-origin sources:
-
-```ts
-csrf({
-  origin: ['https://embedded.example.com', /^https:\/\/.*\.trusted\.test$/],
-})
-```
-
-`origin` accepts a string, regex, array of either, or a function `(origin, ctx) => boolean | null`.
-
-### Hardening: reject requests with no Origin/Referer
-
-By default `csrf()` allows unsafe requests with no `Origin`/`Referer` headers as long as the token is valid. Tighten this for production-grade form workflows:
-
-```ts
-csrf({ allowMissingOrigin: false })
-```
-
-### When you can skip `csrf()` entirely
-
-The framework's `sameSite: 'Lax'` cookie default blocks most CSRF attacks at the browser level. If you can guarantee:
-- All your session/auth cookies are `SameSite=Lax` or stricter
-- No state-changing routes accept `GET`
-- You don't have third-party-embedded forms
-
-…then the tokenless `cop-middleware` (Cross-Origin Protection, based on `Sec-Fetch-Site` and provenance headers) may be enough — and is cheaper. `csrf()` is the conservative default; reach for `cop()` only when you've explicitly evaluated the trade-off.
-
-See `references/csrf.md` for the full options surface and patterns.
+Short version: install `csrf()` after `session()` and embed `getCsrfToken(ctx)` in your forms. Default is correct.
 
 ## Further reading
 
 - `references/credentials.md` — building robust password verification (hashing, rate-limit hooks)
 - `references/oauth-providers.md` — config for Google, GitHub, Microsoft, Okta, Auth0, X, Facebook, generic OIDC
 - `references/protecting-routes.md` — `requireAuth()`, role checks, nested controller middleware
-- `references/csrf.md` — `csrf()` options, token/origin resolvers, failure handling, `cop-middleware` alternative
-- See also: [sessions](../sessions/SKILL.md), [cookies](../cookies/SKILL.md)
+- See also: [security](../security/SKILL.md) (CSRF, COP, CORS), [sessions](../sessions/SKILL.md), [cookies](../cookies/SKILL.md)

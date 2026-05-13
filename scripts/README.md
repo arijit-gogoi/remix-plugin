@@ -18,6 +18,7 @@ Every script:
 | `create-controller.ts`| Stub a controller for an existing route |
 | `create-migration.ts` | Drop a timestamped migration file under `db/migrations/` |
 | `add-middleware.ts`   | Insert a built-in middleware into `app/router.ts` |
+| `verify.ts`           | Parallel verification harness — typechecks the examples + smoke-tests every scaffolder against the real Remix package (~7s on a primed cache) |
 
 ## Usage examples
 
@@ -37,7 +38,21 @@ bun run scripts/create-migration.ts --name add_reviews_table
 # wire in middleware
 bun run scripts/add-middleware.ts --name session
 bun run scripts/add-middleware.ts --name logger
+
+# run the full verification harness before tagging a release
+bun run scripts/verify.ts
+bun run scripts/verify.ts --reprime   # rebuild the cached node_modules
+bun run scripts/verify.ts --keep      # keep scratch dirs after run for debugging
 ```
+
+## verify.ts performance
+
+The first run primes `.verify-cache/node_modules` (~30–60s for npm install).
+Subsequent runs reuse it and finish in **~7s** — all 8 checks run in parallel
+via `Promise.all`, each in a scratch dir with a symlink to the primed cache.
+
+If a check fails, scratch dirs are kept under `.verify-cache/scratch/<check>/`
+so you can `cd` in and reproduce.
 
 ## Running under Node
 
