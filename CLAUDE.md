@@ -6,10 +6,9 @@ Claude Code plugin: comprehensive Remix v3 reference. Published at `arijit-gogoi
 
 ```
 .claude-plugin/plugin.json   ← name, version, description
-skills/                      ← 15 sub-skills (each: SKILL.md + references/*.md)
+skills/                      ← sub-skills (each: SKILL.md + references/*.md)
   remix/                     ← root entrypoint; topic table; "Don't reach for these"
-  routing controllers data-table validation auth security sessions cookies
-  middlewares forms-uploads file-storage ui-framework testing scaffolding migrations
+  (full list lives in .claude-plugin/plugin.json description — single source of truth)
 scripts/                     ← Bun scaffolders + verify.ts
 examples/
   minimal/                   ← smallest viable app (5 files)

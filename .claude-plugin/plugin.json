@@ -1,7 +1,7 @@
 {
   "name": "remix",
-  "version": "0.7.0",
-  "description": "Comprehensive Remix v3 reference: routing, controllers, data-table, validation (data-schema), auth, sessions, cookies, middleware, forms & uploads, file-storage, UI framework, testing, scaffolding, and migrations. Triggered when working in a Remix v3 codebase or when the user invokes /remix.",
+  "version": "0.7.1",
+  "description": "Comprehensive Remix v3 reference. 22 sub-skills covering routing, controllers, database, validation, auth, security, sessions, cookies, middlewares, forms, file-storage, ui, components, templating, headers, build, utilities, testing, cli, scaffolders, migrations, and principles. Triggered when working in a Remix v3 codebase or when the user invokes /remix.",
   "author": {
     "name": "Ari"
   },
@@ -11,9 +11,11 @@
     "remix-v3",
     "remix-run",
     "fetch-router",
-    "data-table",
+    "database",
     "validation",
-    "data-schema",
+    "auth",
+    "security",
+    "components",
     "ssr",
     "fullstack",
     "typescript",

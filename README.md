@@ -4,7 +4,7 @@
 ![Remix v3](https://img.shields.io/badge/Remix-v3-000000)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-A Claude Code plugin that turns the agent into a **Remix v3 expert**. 14 progressive-disclosure sub-skills covering every layer of the framework — routing, controllers, data, auth, middleware, UI, testing, and scaffolding — plus two runnable example apps and a set of Bun-powered scaffolders.
+A Claude Code plugin that turns the agent into a **Remix v3 expert**. Progressive-disclosure sub-skills covering every layer of the framework — routing, controllers, database, validation, auth, security, sessions, middleware, forms, UI components, build pipeline, testing, and more — plus two runnable example apps and a set of Bun-powered scaffolders. The full topic list lives in `.claude-plugin/plugin.json`.
 
 ## Why this exists
 
@@ -88,7 +88,7 @@ remix-plugin/
 ├── .claude-plugin/plugin.json
 ├── skills/
 │   ├── remix/SKILL.md                  ← top-level entrypoint
-│   └── 14 sub-skill subdirectories     ← each with SKILL.md + references/*.md
+│   └── sub-skill subdirectories        ← each with SKILL.md + references/*.md
 ├── scripts/                             ← Bun scaffolders
 └── examples/
     ├── minimal/
