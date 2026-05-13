@@ -100,7 +100,7 @@ const passwordField = f.field(
     '',
   ),
 )
-const ageField = f.field(coerce.number(s.number().pipe(min(13))))
+const ageField = f.field(coerce.number().pipe(min(13)))
 
 const settingsSchema = f.object({
   name:     textField,

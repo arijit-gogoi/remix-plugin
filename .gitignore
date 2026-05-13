@@ -13,3 +13,4 @@ db/*.sqlite-journal
 tmp/
 .cache/
 coverage/
+package-lock.json

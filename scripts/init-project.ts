@@ -31,7 +31,7 @@ writeFileSafe(path.join(base, 'package.json'), `{
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "remix": "^0.2.0",
+    "remix": "next",
     "tsx":   "^4.0.0"
   },
   "devDependencies": {
@@ -51,7 +51,9 @@ writeFileSafe(path.join(base, 'tsconfig.json'), `{
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "jsxImportSource": "remix/ui",
-    "types": ["node"]
+    "types": ["node"],
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": ["app", "server.ts"]
 }
@@ -90,7 +92,7 @@ server.listen(port, () => {
 })
 `)
 
-writeFileSafe(path.join(base, 'app/routes.ts'), `import { route } from 'remix/routes'
+writeFileSafe(path.join(base, 'app/routes.ts'), `import { route } from 'remix/fetch-router/routes'
 
 export const routes = route({
   home: '/',
@@ -101,7 +103,7 @@ writeFileSafe(path.join(base, 'app/router.ts'), `import { createRouter } from 'r
 import { staticFiles } from 'remix/static-middleware'
 
 import { routes } from './routes.ts'
-import home from './controllers/home.tsx'
+import { home } from './controllers/home.tsx'
 
 export const router = createRouter({
   middleware: [
@@ -110,34 +112,24 @@ export const router = createRouter({
 })
 
 router.map(routes.home, home)
-
-export type AppContext = Parameters<typeof router.fetch>[0] extends Request ? unknown : never
 `)
 
-writeFileSafe(path.join(base, 'app/controllers/home.tsx'), `import type { Controller } from 'remix/fetch-router'
+writeFileSafe(path.join(base, 'app/controllers/home.tsx'), `import type { RequestContext } from 'remix/fetch-router'
 
-import { routes } from '../routes.ts'
 import { render } from '../utils/render.tsx'
 import { HomePage } from '../views/home-page.tsx'
 
-export default {
-  actions: {
-    index() {
-      return render(<HomePage title=${JSON.stringify(appName)} />)
-    },
-  },
-} satisfies Controller<typeof routes.home>
+export function home(_context: RequestContext) {
+  return render(<HomePage title=${JSON.stringify(appName)} />)
+}
 `)
 
-writeFileSafe(path.join(base, 'app/views/home-page.tsx'), `import { css } from 'remix/ui'
+writeFileSafe(path.join(base, 'app/views/home-page.tsx'), `import type { Handle } from 'remix/ui'
 
-const main = css({ padding: '2rem', fontFamily: 'system-ui', maxWidth: 720, margin: '0 auto' })
-const title = css({ fontSize: '2.25rem', marginBottom: '0.5rem' })
-
-export function HomePage(handle: { props: { title: string } }) {
+export function HomePage(handle: Handle<{ title: string }>) {
   return () => (
-    <main mix={main}>
-      <h1 mix={title}>{handle.props.title}</h1>
+    <main style="padding:2rem;font-family:system-ui;max-width:720px;margin:0 auto">
+      <h1>{handle.props.title}</h1>
       <p>Welcome — this page was rendered on the server by Remix.</p>
     </main>
   )

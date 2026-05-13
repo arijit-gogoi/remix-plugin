@@ -30,7 +30,7 @@ Checks include:
 - `app/routes.ts` exists and exports a `routes` named export.
 - `app/router.ts` exists and uses `createRouter` from `remix/fetch-router`.
 - Every `app/controllers/**/*.tsx` exports a default `Controller<…>`.
-- Imports use `remix/<subpath>` form, not `@remix-run/<pkg>`.
+- Imports are consistent — either all `remix/<subpath>` or all `@remix-run/<pkg>` per file.
 
 ## `remix routes`
 

@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "remix": "^0.2.0",
+    "remix": "next",
     "tsx":   "^4.0.0"
   },
   "devDependencies": {

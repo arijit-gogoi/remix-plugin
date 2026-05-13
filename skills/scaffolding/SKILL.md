@@ -122,7 +122,7 @@ Each script is idempotent and prints exactly what files it created or edited.
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "remix": "^0.2.0",
+    "remix": "next",
     "tsx": "^4.0.0"
   },
   "devDependencies": {

@@ -6,7 +6,9 @@ The `remix/ui` package implements its own JSX runtime, configured via `tsconfig.
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui"
+    "jsxImportSource": "remix/ui",
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   }
 }
 ```

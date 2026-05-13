@@ -20,7 +20,7 @@ const sessionCookie = createCookie('__session', {
   secrets:  ['s3cret1'],         // required for signed cookies
   httpOnly: true,
   secure:   true,
-  sameSite: 'lax',
+  sameSite: 'Lax',
   path:     '/',
   maxAge:   60 * 60 * 24 * 30,   // 30 days
 })
@@ -79,7 +79,7 @@ const sessionCookie = createCookie('__session', {
   secrets: [process.env.SESSION_SECRET!],
   httpOnly: true,
   secure:   true,
-  sameSite: 'lax',
+  sameSite: 'Lax',
 })
 const sessionStorage = createCookieSessionStorage()
 
@@ -97,7 +97,7 @@ import { createCookie } from 'remix/cookie'
 export const localeCookie = createCookie('locale', {
   maxAge: 60 * 60 * 24 * 365,   // 1 year
   path:   '/',
-  sameSite: 'lax',
+  sameSite: 'Lax',
   // No `secrets` → unsigned, fine for a non-sensitive preference
 })
 ```

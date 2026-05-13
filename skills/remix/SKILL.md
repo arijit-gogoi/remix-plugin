@@ -5,7 +5,7 @@ description: Comprehensive Remix v3 reference covering routing, controllers, dat
 
 # Remix v3
 
-Remix v3 is a full-stack TypeScript web framework built on Web Fetch primitives. The single `remix` npm package re-exports everything via subpath imports: `remix/fetch-router`, `remix/routes`, `remix/data-table`, `remix/auth`, `remix/ui`, `remix/session-middleware`, and so on. There is no separate `@remix-run/*` per-package install — always import from `remix/<subpath>`.
+Remix v3 is a full-stack TypeScript web framework built on Web Fetch primitives. The single `remix` npm package re-exports everything via subpath imports: `remix/fetch-router`, `remix/fetch-router/routes`, `remix/data-table`, `remix/auth`, `remix/ui`, `remix/session-middleware`, and so on. Each subpath also exists as its own `@remix-run/<pkg>` npm package — they're equivalent, the meta-package just bundles them. Prefer `remix/<subpath>` for readability and a single dep.
 
 ## When to load which sub-skill
 
@@ -59,7 +59,7 @@ Minimum `package.json` looks like:
     "test": "remix test",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": { "remix": "^0.2.0", "tsx": "^4.0.0" },
+  "dependencies": { "remix": "next", "tsx": "^4.0.0" },
   "devDependencies": { "@types/node": "^24", "typescript": "^5.6.0" }
 }
 ```
@@ -72,7 +72,7 @@ Always import from subpaths of `remix`:
 
 ```ts
 import { createRouter } from 'remix/fetch-router'
-import { route, form, resources, get, post, put, del } from 'remix/routes'
+import { route, form, resources, get, post, put, del } from 'remix/fetch-router/routes'
 import { createCookie } from 'remix/cookie'
 import { Session } from 'remix/session'
 import { createCookieSessionStorage } from 'remix/session/cookie-storage'
@@ -101,7 +101,7 @@ import { renderToStream } from 'remix/ui/server'
 import { createRequestListener } from 'remix/node-fetch-server'
 ```
 
-Don't mix `@remix-run/<pkg>` imports into Remix v3 code — those are v2 packages.
+Both `remix/<subpath>` and `@remix-run/<pkg>` resolve to the same code in v3 — pick one form per file for consistency. The `remix/<subpath>` form needs only the meta-package as a dependency.
 
 ## Working in an unfamiliar Remix v3 codebase
 
@@ -114,7 +114,7 @@ Don't mix `@remix-run/<pkg>` imports into Remix v3 code — those are v2 package
 ## Common pitfalls to avoid
 
 - **Don't reach for React hooks** in the UI framework. Remix v3 components are not React. State is a plain variable in the setup closure; re-renders are triggered with `handle.update()`. See [ui-framework](./ui-framework/SKILL.md).
-- **Don't import from `@remix-run/*`** — those packages target Remix v2.
+- **Pick one import style per file** — `remix/<subpath>` or `@remix-run/<pkg>` are equivalent in v3, but mixing them in the same file makes diffs noisy.
 - **Don't define routes in a `routes/` folder**. Routes are a single typed map in `app/routes.ts`.
 - **Session cookies must be signed.** Pass `secrets: ['…']` to `createCookie` — see [cookies](./cookies/SKILL.md).
 - **Put `staticFiles` early** in the middleware chain so static requests exit fast. **Put `methodOverride` after** form parsing so the override field is already parsed.

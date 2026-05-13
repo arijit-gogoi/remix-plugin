@@ -10,7 +10,7 @@ Remix v3 has a single typed route map per app, conventionally at `app/routes.ts`
 ## Imports
 
 ```ts
-import { route, form, resources, get, post, put, del } from 'remix/routes'
+import { route, form, resources, get, post, put, del } from 'remix/fetch-router/routes'
 import { createRouter } from 'remix/fetch-router'
 ```
 
@@ -40,7 +40,7 @@ The colon prefix marks a parameter (`:slug`, `:userId`). Params flow into the co
 By default a route accepts any method. To pin GET, POST, PUT, DELETE, use the verb helpers:
 
 ```ts
-import { get, post, put, del } from 'remix/routes'
+import { get, post, put, del } from 'remix/fetch-router/routes'
 
 const apiRoutes = route('api', {
   health:    get('/health'),
@@ -88,7 +88,7 @@ This generates URLs like `GET /admin/books`, `POST /admin/books`, `GET /admin/bo
 ## A realistic top-level `routes.ts`
 
 ```ts
-import { del, form, get, post, put, resources, route } from 'remix/routes'
+import { del, form, get, post, put, resources, route } from 'remix/fetch-router/routes'
 
 export const routes = route({
   assets:    '/assets/*path',

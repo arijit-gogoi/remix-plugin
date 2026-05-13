@@ -11,18 +11,18 @@ import { createCookieSessionStorage } from 'remix/session/cookie-storage'
 
 import { routes } from './routes.ts'
 import { loadDatabase } from './middleware/database.ts'
-import home  from './controllers/home.tsx'
-import about from './controllers/about.tsx'
+import { home } from './controllers/home.tsx'
+import { about } from './controllers/about.tsx'
 import books from './controllers/books/controller.tsx'
-import cart  from './controllers/cart/controller.tsx'
-import adminIndex from './controllers/admin/index.tsx'
+import cart from './controllers/cart/controller.tsx'
+import { adminIndex } from './controllers/admin/index.tsx'
 import adminBooks from './controllers/admin/books/controller.tsx'
 
 const sessionCookie = createCookie('__bookstore_session', {
   secrets:  [process.env.SESSION_SECRET ?? 'dev-secret-not-for-prod'],
   httpOnly: true,
   secure:   process.env.NODE_ENV === 'production',
-  sameSite: 'lax',
+  sameSite: 'Lax',
   path:     '/',
   maxAge:   60 * 60 * 24 * 30,
 })
@@ -43,16 +43,15 @@ export function createBookstoreRouter() {
 
   const router = createRouter({ middleware })
 
-  router.map(routes.home,  home)
+  // Single Routes get inline handlers
+  router.map(routes.home, home)
   router.map(routes.about, about)
+  router.map(routes.admin.index, adminIndex)
+
+  // RouteMaps get controllers
   router.map(routes.books, books)
-  router.map(routes.cart,  cart)
-  router.map(routes.admin, {
-    actions: {
-      index: adminIndex.actions.index,
-      books: adminBooks.actions,
-    },
-  })
+  router.map(routes.cart, cart)
+  router.map(routes.admin.books, adminBooks)
 
   return router
 }

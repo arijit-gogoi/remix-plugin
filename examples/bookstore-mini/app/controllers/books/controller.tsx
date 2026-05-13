@@ -1,22 +1,24 @@
-import type { Controller } from 'remix/fetch-router'
-import { Database } from 'remix/data-table'
+import type { Controller, RequestContext } from 'remix/fetch-router'
+import { Database, type TableRow } from 'remix/data-table'
 
 import { routes } from '../../routes.ts'
 import { books } from '../../data/schema.ts'
 import { render } from '../../utils/render.tsx'
 
+type Book = TableRow<typeof books>
+
 export default {
   actions: {
-    async index({ get }) {
+    async index({ get }: RequestContext) {
       const db = get(Database)
-      const all = await db.findMany(books, { orderBy: ['title', 'asc'] })
+      const all = await db.findMany(books, { orderBy: [['title', 'asc']] })
 
       return render(
         <>
           <h1>Books</h1>
           <div class="grid">
-            {all.map((b) => (
-              <a key={b.slug} class="card" href={routes.books.show.href({ slug: b.slug })}
+            {all.map((b: Book) => (
+              <a class="card" href={routes.books.show.href({ slug: b.slug })}
                  style="text-decoration:none;color:inherit">
                 <span class="price">${b.price.toFixed(2)}</span>
                 <h3>{b.title}</h3>
@@ -29,7 +31,7 @@ export default {
       )
     },
 
-    async show({ get, params }) {
+    async show({ get, params }: RequestContext<{ slug: string }>) {
       const db = get(Database)
       const book = await db.findOne(books, { where: { slug: params.slug } })
       if (!book) return new Response('Not found', { status: 404 })

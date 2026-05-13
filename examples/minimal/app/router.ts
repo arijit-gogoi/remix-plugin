@@ -2,8 +2,8 @@ import { createRouter } from 'remix/fetch-router'
 import { staticFiles } from 'remix/static-middleware'
 
 import { routes } from './routes.ts'
-import home  from './controllers/home.tsx'
-import about from './controllers/about.tsx'
+import { home } from './controllers/home.tsx'
+import { about } from './controllers/about.tsx'
 
 export const router = createRouter({
   middleware: [
@@ -11,5 +11,5 @@ export const router = createRouter({
   ],
 })
 
-router.map(routes.home,  home)
+router.map(routes.home, home)
 router.map(routes.about, about)

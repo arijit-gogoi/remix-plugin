@@ -35,7 +35,7 @@ my-app/
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "remix": "^0.2.0",
+    "remix": "next",
     "tsx":   "^4.0.0"
   },
   "devDependencies": {
@@ -62,7 +62,9 @@ my-app/
     "skipLibCheck":    true,
     "jsx":             "react-jsx",
     "jsxImportSource": "remix/ui",
-    "types":           ["node"]
+    "types":           ["node"],
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": ["app", "server.ts"]
 }
@@ -122,7 +124,7 @@ The middleware stack starts minimal. Add `logger`, `compression`, `session`, etc
 ## `app/routes.ts`
 
 ```ts
-import { route } from 'remix/routes'
+import { route } from 'remix/fetch-router/routes'
 
 export const routes = route({
   home: '/',

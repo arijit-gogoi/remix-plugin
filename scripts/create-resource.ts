@@ -22,12 +22,12 @@ const actions = (only && only.length > 0)
 const routesPath = path.resolve('app/routes.ts')
 let routesSrc    = readFile(routesPath)
 
-if (!routesSrc.includes(`from 'remix/routes'`)) {
-  routesSrc = `import { route, resources } from 'remix/routes'\n\n${routesSrc}`
+if (!routesSrc.includes(`from 'remix/fetch-router/routes'`)) {
+  routesSrc = `import { route, resources } from 'remix/fetch-router/routes'\n\n${routesSrc}`
 } else if (!routesSrc.includes(`resources`)) {
   routesSrc = routesSrc.replace(
     /import \{([^}]+)\} from 'remix\/routes'/,
-    (_m, inside) => `import {${inside.trim()}, resources} from 'remix/routes'`,
+    (_m, inside) => `import {${inside.trim()}, resources} from 'remix/fetch-router/routes'`,
   )
 }
 

@@ -1,5 +1,5 @@
-import type { Controller } from 'remix/fetch-router'
-import { Database } from 'remix/data-table'
+import type { Controller, RequestContext } from 'remix/fetch-router'
+import { Database, type TableRow } from 'remix/data-table'
 import { Session } from 'remix/session'
 import { redirect } from 'remix/response/redirect'
 
@@ -7,7 +7,6 @@ import { routes } from '../../routes.ts'
 import { books } from '../../data/schema.ts'
 import { render } from '../../utils/render.tsx'
 
-// Cart lives in the session as Record<slug, qty>
 type Cart = Record<string, number>
 
 function readCart(session: Session): Cart {
@@ -20,7 +19,7 @@ function writeCart(session: Session, cart: Cart) {
 
 export default {
   actions: {
-    async index({ get }) {
+    async index({ get }: RequestContext) {
       const db = get(Database)
       const session = get(Session)
       const cart = readCart(session)
@@ -37,8 +36,6 @@ export default {
         )
       }
 
-      // findMany doesn't accept "IN (...)" via shorthand — use the QueryBuilder
-      // for readability in real apps; for three slugs, this is fine.
       const items = await Promise.all(
         slugs.map(async (slug) => {
           const book = await db.findOne(books, { where: { slug } })
@@ -46,7 +43,7 @@ export default {
         }),
       )
 
-      const rows = items.filter((x): x is { book: typeof books.$inferRow; qty: number } => x !== null)
+      const rows = items.filter((x): x is { book: TableRow<typeof books>; qty: number } => x !== null)
       const total = rows.reduce((s, r) => s + r.book.price * r.qty, 0)
 
       return render(
@@ -54,7 +51,7 @@ export default {
           <h1>Cart</h1>
           <div class="grid">
             {rows.map(({ book, qty }) => (
-              <div key={book.slug} class="card">
+              <div class="card">
                 <span class="price">${(book.price * qty).toFixed(2)}</span>
                 <h3>{book.title}</h3>
                 <small>{book.author} · qty {qty}</small>
@@ -73,29 +70,31 @@ export default {
     },
 
     api: {
-      add({ get, request }) {
-        const session = get(Session)
-        const formData = get(FormData)
-        const slug = String(formData.get('slug') ?? '')
-        if (!slug) return new Response('missing slug', { status: 400 })
+      actions: {
+        add({ get }: RequestContext) {
+          const session = get(Session)
+          const formData = get(FormData)
+          const slug = String(formData.get('slug') ?? '')
+          if (!slug) return new Response('missing slug', { status: 400 })
 
-        const cart = readCart(session)
-        cart[slug] = (cart[slug] ?? 0) + 1
-        writeCart(session, cart)
+          const cart = readCart(session)
+          cart[slug] = (cart[slug] ?? 0) + 1
+          writeCart(session, cart)
 
-        return redirect(routes.cart.index.href())
-      },
+          return redirect(routes.cart.index.href())
+        },
 
-      remove({ get }) {
-        const session = get(Session)
-        const formData = get(FormData)
-        const slug = String(formData.get('slug') ?? '')
+        remove({ get }: RequestContext) {
+          const session = get(Session)
+          const formData = get(FormData)
+          const slug = String(formData.get('slug') ?? '')
 
-        const cart = readCart(session)
-        delete cart[slug]
-        writeCart(session, cart)
+          const cart = readCart(session)
+          delete cart[slug]
+          writeCart(session, cart)
 
-        return redirect(routes.cart.index.href())
+          return redirect(routes.cart.index.href())
+        },
       },
     },
   },

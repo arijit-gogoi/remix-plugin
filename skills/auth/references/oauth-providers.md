@@ -88,9 +88,9 @@ Same shape — `clientId`, `clientSecret`, `redirectUri`, `scope`.
 For any spec-compliant OpenID Connect issuer:
 
 ```ts
-import { createOidcAuthProvider } from 'remix/auth'
+import { createOIDCAuthProvider } from 'remix/auth'
 
-export const oidcProvider = createOidcAuthProvider({
+export const oidcProvider = createOIDCAuthProvider({
   issuer:        'https://idp.example.com',
   clientId:      process.env.OIDC_CLIENT_ID!,
   clientSecret:  process.env.OIDC_CLIENT_SECRET!,

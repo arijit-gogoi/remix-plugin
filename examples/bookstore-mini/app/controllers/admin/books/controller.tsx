@@ -1,68 +1,83 @@
-import type { Controller } from 'remix/fetch-router'
+import type { Controller, RequestContext } from 'remix/fetch-router'
+import type { Handle } from 'remix/ui'
 import * as s from 'remix/data-schema'
 import * as f from 'remix/data-schema/form-data'
 import * as coerce from 'remix/data-schema/coerce'
-import { Database } from 'remix/data-table'
+import { Database, type TableRow } from 'remix/data-table'
 import { redirect } from 'remix/response/redirect'
 
 import { routes } from '../../../routes.ts'
 import { books } from '../../../data/schema.ts'
 import { render } from '../../../utils/render.tsx'
 
+type Book = TableRow<typeof books>
+// Mirrors the readonly StandardSchemaV1 Issue shape that parseSafe returns.
+type Issue = { readonly path?: ReadonlyArray<PropertyKey | { key: PropertyKey }>; readonly message: string }
+
 const bookSchema = f.object({
   slug:           f.field(s.string()),
   title:          f.field(s.string()),
   author:         f.field(s.string()),
   description:    f.field(s.string()),
-  price:          f.field(coerce.number(s.number())),
+  price:          f.field(coerce.number()),
   genre:          f.field(s.string()),
   isbn:           f.field(s.string()),
-  publishedYear:  f.field(coerce.number(s.number())),
+  publishedYear:  f.field(coerce.number()),
   coverUrl:       f.field(s.string()),
-  inStock:        f.field(coerce.boolean(s.boolean())),
+  inStock:        f.field(coerce.boolean()),
 })
 
-function BookForm(props: {
-  values?: Partial<typeof books.$inferRow>
+type BookFormProps = {
+  values?: Partial<Book>
   action: string
   method?: 'POST' | 'PUT'
   submit: string
-  errors?: Array<{ path: (string | number)[]; message: string }>
-}) {
-  const v = props.values ?? {}
-  const e = props.errors ?? []
-  const err = (field: string) => e.filter((i) => i.path[0] === field).map((i) => i.message)
+  errors?: ReadonlyArray<Issue>
+}
 
-  return (
-    <form method="post" action={props.action}>
-      {props.method === 'PUT' && <input type="hidden" name="_method" value="PUT" />}
+function BookForm(handle: Handle<BookFormProps>) {
+  return () => {
+    const v = handle.props.values ?? {}
+    const e = handle.props.errors ?? []
+    const err = (field: string) => e
+      .filter((i) => {
+        const first = i.path?.[0]
+        const key = typeof first === 'object' && first !== null ? first.key : first
+        return key === field
+      })
+      .map((i) => i.message)
 
-      <label>Slug<input name="slug" value={v.slug ?? ''} required /></label>
-      {err('slug').map((m) => <p class="err">{m}</p>)}
+    return (
+      <form method="post" action={handle.props.action}>
+        {handle.props.method === 'PUT' && <input type="hidden" name="_method" value="PUT" />}
 
-      <label>Title<input name="title" value={v.title ?? ''} required /></label>
-      <label>Author<input name="author" value={v.author ?? ''} required /></label>
-      <label>Description<textarea name="description">{v.description ?? ''}</textarea></label>
-      <label>Price<input name="price" type="number" step="0.01" value={v.price ?? ''} required /></label>
-      <label>Genre<input name="genre" value={v.genre ?? ''} required /></label>
-      <label>ISBN<input name="isbn" value={v.isbn ?? ''} required /></label>
-      <label>Published year<input name="publishedYear" type="number" value={v.published_year ?? ''} required /></label>
-      <label>Cover URL<input name="coverUrl" value={v.cover_url ?? '/images/placeholder.jpg'} required /></label>
-      <label>
-        <input name="inStock" type="checkbox" checked={v.in_stock ?? true} value="true" />
-        {' '}In stock
-      </label>
+        <label>Slug<input name="slug" value={v.slug ?? ''} required /></label>
+        {err('slug').map((m) => <p class="err">{m}</p>)}
 
-      <button type="submit">{props.submit}</button>
-    </form>
-  )
+        <label>Title<input name="title" value={v.title ?? ''} required /></label>
+        <label>Author<input name="author" value={v.author ?? ''} required /></label>
+        <label>Description<textarea name="description">{v.description ?? ''}</textarea></label>
+        <label>Price<input name="price" type="number" step="0.01" value={v.price ?? ''} required /></label>
+        <label>Genre<input name="genre" value={v.genre ?? ''} required /></label>
+        <label>ISBN<input name="isbn" value={v.isbn ?? ''} required /></label>
+        <label>Published year<input name="publishedYear" type="number" value={v.published_year ?? ''} required /></label>
+        <label>Cover URL<input name="coverUrl" value={v.cover_url ?? '/images/placeholder.jpg'} required /></label>
+        <label>
+          <input name="inStock" type="checkbox" checked={v.in_stock ?? true} value="true" />
+          {' '}In stock
+        </label>
+
+        <button type="submit">{handle.props.submit}</button>
+      </form>
+    )
+  }
 }
 
 export default {
   actions: {
-    async index({ get }) {
+    async index({ get }: RequestContext) {
       const db = get(Database)
-      const all = await db.findMany(books, { orderBy: ['id', 'asc'] })
+      const all = await db.findMany(books, { orderBy: [['id', 'asc']] })
       return render(
         <>
           <h1>Admin · Books</h1>
@@ -72,8 +87,8 @@ export default {
               <th>Title</th><th>Author</th><th>Price</th><th>Stock</th><th></th>
             </tr></thead>
             <tbody>
-              {all.map((b) => (
-                <tr key={b.id} style="border-top:1px solid #eee">
+              {all.map((b: Book) => (
+                <tr style="border-top:1px solid #eee">
                   <td>{b.title}</td>
                   <td>{b.author}</td>
                   <td>${b.price.toFixed(2)}</td>
@@ -101,7 +116,7 @@ export default {
       )
     },
 
-    async create({ get }) {
+    async create({ get }: RequestContext) {
       const db = get(Database)
       const formData = get(FormData)
       const parsed = s.parseSafe(bookSchema, formData)
@@ -130,9 +145,9 @@ export default {
       return redirect(routes.admin.books.index.href())
     },
 
-    async show({ get, params }) {
+    async show({ get, params }: RequestContext<{ bookId: string }>) {
       const db = get(Database)
-      const book = await db.find(books, params.bookId)
+      const book = await db.find(books, Number(params.bookId))
       if (!book) return new Response('Not found', { status: 404 })
       return render(
         <>
@@ -149,9 +164,9 @@ export default {
       )
     },
 
-    async edit({ get, params }) {
+    async edit({ get, params }: RequestContext<{ bookId: string }>) {
       const db = get(Database)
-      const book = await db.find(books, params.bookId)
+      const book = await db.find(books, Number(params.bookId))
       if (!book) return new Response('Not found', { status: 404 })
       return render(
         <>
@@ -167,7 +182,7 @@ export default {
       )
     },
 
-    async update({ get, params }) {
+    async update({ get, params }: RequestContext<{ bookId: string }>) {
       const db = get(Database)
       const formData = get(FormData)
       const parsed = s.parseSafe(bookSchema, formData)
@@ -186,7 +201,7 @@ export default {
         )
       }
       const v = parsed.value
-      await db.update(books, params.bookId, {
+      await db.update(books, Number(params.bookId), {
         slug:           v.slug,
         title:          v.title,
         author:         v.author,
@@ -201,9 +216,9 @@ export default {
       return redirect(routes.admin.books.show.href({ bookId: params.bookId }))
     },
 
-    async destroy({ get, params }) {
+    async destroy({ get, params }: RequestContext<{ bookId: string }>) {
       const db = get(Database)
-      await db.delete(books, params.bookId)
+      await db.delete(books, Number(params.bookId))
       return redirect(routes.admin.books.index.href())
     },
   },

@@ -1,4 +1,4 @@
-import { del, form, get, post, put, resources, route } from 'remix/routes'
+import { del, form, get, post, put, resources, route } from 'remix/fetch-router/routes'
 
 export const routes = route({
   // Static & shop

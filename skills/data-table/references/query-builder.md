@@ -31,39 +31,37 @@ const rows = await db.exec(q)
 ```ts
 const q = query(orders)
   .join(users, eq(orders.user_id, users.id))
-  .leftJoin(orderItems, eq(orderItems.order_id, orders.id))
   .where({ status: 'pending' })
   .select({
-    orderId:   orders.id,
-    email:     users.email,
-    itemCount: countDistinct(orderItems.book_id),
+    orderId: orders.id,
+    email:   users.email,
+    total:   orders.total,
   })
-  .groupBy(orders.id, users.email)
 ```
 
-### Aggregations
+### Aggregations via raw SQL
+
+`data-table` doesn't ship `count` / `sum` / `avg` helpers. Use the `sql` tagged template or `rawSql` to drop down to dialect-specific aggregations:
 
 ```ts
-import { count, countDistinct, sum, avg, min as mn, max as mx } from 'remix/data-table'
+import { sql, rawSql } from 'remix/data-table'
 
 const stats = await db.exec(
-  query(orders)
-    .where({ status: 'delivered' })
-    .select({
-      total:    count(),
-      revenue:  sum(orders.total),
-      avgValue: avg(orders.total),
-    }),
+  sql`SELECT COUNT(*) AS total, SUM(total) AS revenue
+        FROM orders WHERE status = ${'delivered'}`,
 )
 ```
+
+The `sql` tag parameterizes interpolated values safely. Reach for `rawSql` only when you genuinely need a literal string (table names, identifiers).
 
 ## INSERT
 
 ```ts
 await db.query(users).insert({ id: 1, email: 'a@example.com', role: 'customer' })
 
-// Returning row(s):
-const inserted = await db.query(users).insert({ … }, { returnRow: true })
+// Most write helpers (db.create, db.update) return the affected row directly
+// when called with a returning options object — see the Database section
+// in data-table/SKILL.md for the exact overloads.
 
 // Bulk insert:
 await db.query(users).insert([

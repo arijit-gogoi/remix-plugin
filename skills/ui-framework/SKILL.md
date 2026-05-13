@@ -28,7 +28,9 @@ The Remix JSX runtime is configured in `tsconfig.json`. The bootstrap template s
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui"
+    "jsxImportSource": "remix/ui",
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   }
 }
 ```

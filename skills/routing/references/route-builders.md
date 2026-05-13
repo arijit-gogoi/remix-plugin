@@ -1,6 +1,6 @@
 # Route Builders — full reference
 
-All exports from `remix/routes`.
+All exports from `remix/fetch-router/routes`.
 
 ## `route(...)`
 

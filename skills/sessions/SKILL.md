@@ -44,7 +44,7 @@ const sessionCookie = createCookie('__session', {
   secrets:  [process.env.SESSION_SECRET!],   // required
   httpOnly: true,
   secure:   true,
-  sameSite: 'lax',
+  sameSite: 'Lax',
 })
 
 const sessionStorage = createCookieSessionStorage()
@@ -129,7 +129,7 @@ session.set('count', 1)   // typed
 
 - Set `secrets` to an array. The first secret signs new cookies; the others remain valid for verification. Rotate by *prepending* a new secret.
 - Use `secure: true` in production. Set `secure: false` for local HTTP in dev.
-- `sameSite: 'lax'` is a safe default for top-level navigation flows.
+- `sameSite: 'Lax'` is a safe default for top-level navigation flows.
 
 ## Further reading
 

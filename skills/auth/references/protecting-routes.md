@@ -91,4 +91,4 @@ Mount these *outside* the protected subtree, or above it in your route layout.
 
 ## CSRF
 
-Sessions are signed cookies, but state-changing forms still need CSRF protection in cross-origin scenarios. The framework's `sameSite: 'lax'` cookie default handles top-level navigation. For embedded forms (iframes, third-party POSTs) add a CSRF middleware that compares a hidden form field against a token in the session.
+Sessions are signed cookies, but state-changing forms still need CSRF protection in cross-origin scenarios. The framework's `sameSite: 'Lax'` cookie default handles top-level navigation. For embedded forms (iframes, third-party POSTs) add a CSRF middleware that compares a hidden form field against a token in the session.
