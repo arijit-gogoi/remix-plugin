@@ -53,6 +53,7 @@ git clone https://github.com/arijit-gogoi/remix-plugin.git
 | **cli** | official `remix` CLI: `new` / `doctor` / `routes` / `test` / `version` / `completion` |
 | **scaffolders** | this plugin's Bun scripts: `create-route`, `create-resource`, `create-migration`, `add-middleware`, etc. |
 | **migrations** | `createMigration`, DDL helpers, runner, zero-downtime strategies |
+| **principles** | the six principles guiding Remix v3 — Model-First, Web APIs, Runtime, Dependencies, Composition, Cohesion |
 
 Each sub-skill is a SKILL.md plus 2–4 progressive-disclosure references docs. Claude loads only what the current task needs.
 

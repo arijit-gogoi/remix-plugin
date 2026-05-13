@@ -33,6 +33,7 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 | Add a single route, resource block, migration, or middleware to an existing project | [scaffolders](../scaffolders/SKILL.md) |
 | Define and apply schema migrations | [migrations](../migrations/SKILL.md) |
 | Find the smaller built-ins — mime, lazy-file, fs, tar, terminal, node-serve, fetch-proxy | [utilities](../utilities/SKILL.md) |
+| Explain the framework's design — Model-First, Web APIs, Runtime, Dependencies, Composition, Cohesion | [principles](../principles/SKILL.md) |
 
 ## Don't reach for these — Remix bundles them
 
