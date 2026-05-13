@@ -17,9 +17,11 @@ type Built = {
   order: number
 }
 
-// Ordering follows the canonical stack from skills/middleware/references/ordering.md.
+// Ordering follows the canonical stack from skills/middlewares/SKILL.md.
 const SHIPPED: Record<string, Built> = {
+  cors:           { order:  5, importLine: `import { cors } from 'remix/cors-middleware'`,                      factoryCall: `cors({ origin: '*' })` },
   logger:         { order: 10, importLine: `import { logger } from 'remix/logger-middleware'`,                  factoryCall: `logger()` },
+  cop:            { order: 15, importLine: `import { cop } from 'remix/cop-middleware'`,                        factoryCall: `cop()` },
   compression:    { order: 20, importLine: `import { compression } from 'remix/compression-middleware'`,        factoryCall: `compression()` },
   staticFiles:    { order: 30, importLine: `import { staticFiles } from 'remix/static-middleware'`,             factoryCall: `staticFiles('./public', { cacheControl: 'public, max-age=3600' })` },
   formData:       { order: 40, importLine: `import { formData } from 'remix/form-data-middleware'`,             factoryCall: `formData({})` },
