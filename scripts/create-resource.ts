@@ -4,30 +4,43 @@
 // Usage:
 //   bun run scripts/create-resource.ts --name reviews --param reviewId
 //   bun run scripts/create-resource.ts --name books --param bookId --only index,show,new,create
+//
+// Flags:
+//   --name   JS-identifier-safe key (camelCase, no hyphens). Also the URL
+//            segment and the controller directory name.
+//   --param  URL param name (e.g. reviewId). Required.
+//   --only   comma list of actions to include
+//            (index|new|create|show|edit|update|destroy). All if omitted.
 
 import * as path from 'node:path'
-import { parseArgs, require_, readFile, writeFile, writeFileSafe, info } from './_shared.ts'
+import { parseArgs, require_, readFile, writeFile, writeFileSafe, info, die } from './_shared.ts'
 
 const args  = parseArgs(process.argv.slice(2))
 const name  = require_(args, 'name')
 const param = require_(args, 'param')
 const only  = (args.only as string | undefined)?.split(',').map((s) => s.trim()).filter(Boolean)
 
+if (!/^[a-z][a-zA-Z0-9]*$/.test(name)) {
+  die(`--name must be a valid JS identifier (camelCase, no hyphens). Got: ${name}`)
+}
+
 const ALL = ['index', 'new', 'create', 'show', 'edit', 'update', 'destroy'] as const
 const actions = (only && only.length > 0)
   ? only.filter((a): a is (typeof ALL)[number] => (ALL as readonly string[]).includes(a))
-  : ALL
+  : [...ALL]
+
+const SUBPATH = 'remix/fetch-router/routes'
 
 // ── app/routes.ts
 const routesPath = path.resolve('app/routes.ts')
 let routesSrc    = readFile(routesPath)
 
-if (!routesSrc.includes(`from 'remix/fetch-router/routes'`)) {
-  routesSrc = `import { route, resources } from 'remix/fetch-router/routes'\n\n${routesSrc}`
-} else if (!routesSrc.includes(`resources`)) {
+if (!routesSrc.includes(`from '${SUBPATH}'`)) {
+  routesSrc = `import { route, resources } from '${SUBPATH}'\n\n${routesSrc}`
+} else if (!new RegExp(`import\\s*\\{[^}]*\\bresources\\b[^}]*\\}\\s*from\\s*'${SUBPATH.replace(/\//g, '\\/')}'`).test(routesSrc)) {
   routesSrc = routesSrc.replace(
-    /import \{([^}]+)\} from 'remix\/routes'/,
-    (_m, inside) => `import {${inside.trim()}, resources} from 'remix/fetch-router/routes'`,
+    new RegExp(`import\\s*\\{([^}]+)\\}\\s*from\\s*'${SUBPATH.replace(/\//g, '\\/')}'`),
+    (_m, inside) => `import {${inside.trim()}, resources} from '${SUBPATH}'`,
   )
 }
 
@@ -48,19 +61,22 @@ if (routesSrc.includes(`${name}: resources`)) {
 // ── app/controllers/<name>/controller.tsx
 const controllerPath = path.resolve(`app/controllers/${name}/controller.tsx`)
 
-const handlers: Record<(typeof ALL)[number], string> = {
+// Build action stubs. Avoid destructuring args that aren't used, and avoid
+// `${…}` inside the generated JSX (it would interpolate at generation time).
+type ActionName = (typeof ALL)[number]
+const handlers: Record<ActionName, string> = {
   index:   `    index() { return render(<p>${name} index</p>) },`,
   new:     `    new() { return render(<p>new ${name.replace(/s$/, '')}</p>) },`,
-  create:  `    async create({ get }) { return new Response('TODO', { status: 501 }) },`,
-  show:    `    show({ params }) { return render(<p>${name} \${params.${param}}</p>) },`,
-  edit:    `    edit({ params }) { return render(<p>edit ${name} \${params.${param}}</p>) },`,
-  update:  `    async update({ get, params }) { return new Response('TODO', { status: 501 }) },`,
-  destroy: `    async destroy({ get, params }) { return new Response('TODO', { status: 501 }) },`,
+  create:  `    async create(_ctx: RequestContext) { return new Response('TODO', { status: 501 }) },`,
+  show:    `    show(ctx: RequestContext<{ ${param}: string }>) { return render(<p>${name} {ctx.params.${param}}</p>) },`,
+  edit:    `    edit(ctx: RequestContext<{ ${param}: string }>) { return render(<p>edit ${name} {ctx.params.${param}}</p>) },`,
+  update:  `    async update(_ctx: RequestContext<{ ${param}: string }>) { return new Response('TODO', { status: 501 }) },`,
+  destroy: `    async destroy(_ctx: RequestContext<{ ${param}: string }>) { return new Response('TODO', { status: 501 }) },`,
 }
 
-const body = actions.map((a) => handlers[a]).join('\n').replace(/\\\$/g, '$')
+const body = actions.map((a) => handlers[a]).join('\n')
 
-writeFileSafe(controllerPath, `import type { Controller } from 'remix/fetch-router'
+writeFileSafe(controllerPath, `import type { Controller, RequestContext } from 'remix/fetch-router'
 
 import { routes } from '../../routes.ts'
 import { render } from '../../utils/render.tsx'

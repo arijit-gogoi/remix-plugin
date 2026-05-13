@@ -17,7 +17,7 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 | Write a `.tsx` controller, return responses, read context, params, FormData | [controllers](../controllers/SKILL.md) |
 | Talk to the database — tables, queries, joins, transactions, adapters | [data-table](../data-table/SKILL.md) |
 | Validate input with `s.parse` / `f.object` / `.pipe(min, max, email)` | [validation](../validation/SKILL.md) |
-| Add login: credentials, Google/GitHub/Okta OAuth, requireAuth middleware | [auth](../auth/SKILL.md) |
+| Add login: credentials, Google/GitHub/Okta OAuth, requireAuth middleware, CSRF protection | [auth](../auth/SKILL.md) |
 | Set up sessions, store user state, flash messages | [sessions](../sessions/SKILL.md) |
 | Configure cookies, signing, secret rotation | [cookies](../cookies/SKILL.md) |
 | Compose router middleware: logger, compression, staticFiles, methodOverride, asyncContext | [middleware](../middleware/SKILL.md) |

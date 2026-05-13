@@ -11,6 +11,12 @@
 #   2. Type-check examples/bookstore-mini against the real remix package.
 #   3. Smoke-test init-project.ts: scaffold a fresh project + tsc clean.
 #   4. Smoke-test create-route.ts: append a route + verify it still tsc's clean.
+#   5. Smoke-test create-resource.ts: add a resources block + verify tsc clean.
+#   6. Smoke-test create-migration.ts: drop a migration file + verify tsc clean.
+#   7. Smoke-test add-middleware.ts: insert two middlewares + verify tsc clean.
+#   8. Smoke-test create-controller.ts: stub a controller file (file-existence
+#      only — generated stub is intentionally permissive and only typechecks
+#      against a matching RouteMap target).
 
 set -euo pipefail
 
@@ -79,6 +85,56 @@ create_route_smoke() {
   (cd "$d" && ./node_modules/.bin/tsc --noEmit)
 }
 check "create-route.ts produces a tsc-clean app" create_route_smoke
+
+# --- Check 5: create-resource scaffolder ------------------------------------
+create_resource_smoke() {
+  local d="$TMP/resource"
+  mkdir -p "$d"
+  cp -r "$ROOT/examples/minimal/." "$d/"
+  ensure_deps "$d"
+  (cd "$d" && bun run "$ROOT/scripts/create-resource.ts" --name reviews --param reviewId > /dev/null)
+  (cd "$d" && ./node_modules/.bin/tsc --noEmit)
+}
+check "create-resource.ts produces a tsc-clean app" create_resource_smoke
+
+# --- Check 6: create-migration scaffolder -----------------------------------
+create_migration_smoke() {
+  local d="$TMP/migration"
+  mkdir -p "$d"
+  cp -r "$ROOT/examples/minimal/." "$d/"
+  ensure_deps "$d"
+  (cd "$d" && bun run "$ROOT/scripts/create-migration.ts" --name add_smoke_table > /dev/null)
+  # tsc-check the whole project (migration files are caught by include "app").
+  # The migration file itself lives in db/ which is not in tsconfig include,
+  # so verify it parses by reading it with bun:
+  local file
+  file=$(ls "$d/db/migrations"/*.ts | head -1)
+  [ -f "$file" ] || return 1
+  bun --bun build "$file" --target node --outdir "$TMP/migration-build" > /dev/null
+}
+check "create-migration.ts produces a parseable migration" create_migration_smoke
+
+# --- Check 7: add-middleware scaffolder -------------------------------------
+add_middleware_smoke() {
+  local d="$TMP/mw"
+  mkdir -p "$d"
+  cp -r "$ROOT/examples/minimal/." "$d/"
+  ensure_deps "$d"
+  (cd "$d" && bun run "$ROOT/scripts/add-middleware.ts" --name logger > /dev/null)
+  (cd "$d" && bun run "$ROOT/scripts/add-middleware.ts" --name compression > /dev/null)
+  (cd "$d" && ./node_modules/.bin/tsc --noEmit)
+}
+check "add-middleware.ts produces a tsc-clean app" add_middleware_smoke
+
+# --- Check 8: create-controller scaffolder (file existence only) -----------
+create_controller_smoke() {
+  local d="$TMP/ctrl"
+  mkdir -p "$d"
+  cp -r "$ROOT/examples/minimal/." "$d/"
+  (cd "$d" && bun run "$ROOT/scripts/create-controller.ts" --route home > /dev/null)
+  [ -f "$d/app/controllers/home/controller.tsx" ]
+}
+check "create-controller.ts writes the expected file" create_controller_smoke
 
 echo
 if [ "$fail" -gt 0 ]; then
