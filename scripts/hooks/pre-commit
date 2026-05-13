@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Pre-commit hook for remix-plugin.
+#
+# Runs scripts/verify.ts only when staged changes touch files that could
+# affect verification. README/CLAUDE/NOTES-only commits go through fast.
+#
+# Bypass with:  git commit --no-verify
+
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+# Files that, when changed, mean we should re-verify.
+RELEVANT_PATTERN='^(skills/|scripts/|examples/|\.claude-plugin/|\.github/workflows/)'
+
+# Get the list of staged files (added/copied/modified — not deleted).
+mapfile -t CHANGED < <(git diff --cached --name-only --diff-filter=ACM | grep -E "$RELEVANT_PATTERN" || true)
+
+if [ "${#CHANGED[@]}" -eq 0 ]; then
+  echo "pre-commit: no plugin-relevant changes, skipping verify.ts"
+  exit 0
+fi
+
+echo "pre-commit: $(printf '%s\n' "${CHANGED[@]}" | wc -l) plugin-relevant files changed — running verify.ts"
+echo
+
+if ! command -v bun > /dev/null 2>&1; then
+  echo "pre-commit: ERROR bun is not on PATH. Install Bun or commit with --no-verify."
+  exit 1
+fi
+
+cd "$REPO_ROOT"
+if bun run scripts/verify.ts; then
+  echo
+  echo "pre-commit: verify passed, proceeding with commit"
+  exit 0
+else
+  echo
+  echo "pre-commit: verify FAILED — commit blocked"
+  echo "             scratch dirs preserved at .verify-cache/scratch/"
+  echo "             bypass once with:  git commit --no-verify"
+  exit 1
+fi

@@ -20,6 +20,8 @@ Every script:
 | `add-middleware.ts`   | Insert a built-in middleware into `app/router.ts` |
 | `verify.ts`           | Parallel verification harness — typechecks the examples + smoke-tests every scaffolder against the real Remix package (~7s on a primed cache) |
 | `check-upstream.ts`   | Compare cached remix version vs npm @next; exits 1 on drift. Use weekly. |
+| `install-hooks.sh`    | Wires `scripts/hooks/*` into `.git/hooks/`. **Run once per clone.** |
+| `hooks/pre-commit`    | Runs `verify.ts` before commits that touch plugin-relevant paths. Skips README-only changes. |
 
 ## Usage examples
 

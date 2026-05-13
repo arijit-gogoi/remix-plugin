@@ -34,6 +34,18 @@ Check upstream version without re-priming the cache:
 bun run scripts/check-upstream.ts   # exits 1 if npm @next differs from cache
 ```
 
+## Pre-commit hook
+
+`scripts/hooks/pre-commit` runs `verify.ts` automatically before any commit that touches `skills/`, `scripts/`, `examples/`, `.claude-plugin/`, or `.github/workflows/`. README/CLAUDE/NOTES-only commits skip it.
+
+**Run the installer once per clone** (hooks live in `.git/hooks/` which isn't tracked):
+
+```pwsh
+bash scripts/install-hooks.sh
+```
+
+Bypass for a single commit with `git commit --no-verify`.
+
 ## Adding a sub-skill
 
 1. `skills/<name>/SKILL.md` with frontmatter `name: remix-<name>` and a `description:` that names the trigger words.
