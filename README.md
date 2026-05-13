@@ -12,27 +12,22 @@ Remix v3 is a *standalone* full-stack TypeScript framework — its own router, d
 
 ## Install
 
-### Option A — via marketplace (recommended)
+This plugin is published through the [`ari-marketplace`](https://github.com/arijit-gogoi/ari-marketplace) marketplace.
 
 ```text
 /plugin marketplace add arijit-gogoi/ari-marketplace
 /plugin install remix@ari-marketplace
 ```
 
-### Option B — direct from this repo
+After install, restart Claude Code. The plugin auto-loads on Remix v3 projects (anything with `app/routes.ts`, `app/router.ts`, or a `remix` dep in `package.json`) and on the `/remix` command.
 
-```text
-/plugin install github:arijit-gogoi/remix-plugin
-```
+### Development install
 
-### Option C — manual symlink (development)
+If you want to hack on the plugin itself, clone the repo and follow the layout in `~/.claude/plugins/` that your Claude Code version expects — inspect an existing entry there to match the convention.
 
 ```pwsh
 git clone https://github.com/arijit-gogoi/remix-plugin.git
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\plugins\remix" -Target "$PWD\remix-plugin"
 ```
-
-After install, restart Claude Code. The plugin auto-loads on Remix v3 projects (anything with `app/routes.ts`, `app/router.ts`, or a `remix` dep in `package.json`) and on the `/remix` command.
 
 ## What you get
 
