@@ -26,6 +26,14 @@ bun run scripts/verify.ts --keep     # retain scratch dirs after run
 
 Runs 8 checks in parallel: tsc on both examples + smoke-test on every scaffolder. Exit code is the source of truth. **Do not tag without it green.**
 
+GitHub Actions runs `verify.ts --reprime` on push, PR, and weekly (Mondays 12:00 UTC) — see `.github/workflows/verify.yml`. A red cron means upstream drift; patch and ship `v0.x.y`.
+
+Check upstream version without re-priming the cache:
+
+```pwsh
+bun run scripts/check-upstream.ts   # exits 1 if npm @next differs from cache
+```
+
 ## Adding a sub-skill
 
 1. `skills/<name>/SKILL.md` with frontmatter `name: remix-<name>` and a `description:` that names the trigger words.

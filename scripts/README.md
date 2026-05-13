@@ -19,6 +19,7 @@ Every script:
 | `create-migration.ts` | Drop a timestamped migration file under `db/migrations/` |
 | `add-middleware.ts`   | Insert a built-in middleware into `app/router.ts` |
 | `verify.ts`           | Parallel verification harness — typechecks the examples + smoke-tests every scaffolder against the real Remix package (~7s on a primed cache) |
+| `check-upstream.ts`   | Compare cached remix version vs npm @next; exits 1 on drift. Use weekly. |
 
 ## Usage examples
 
