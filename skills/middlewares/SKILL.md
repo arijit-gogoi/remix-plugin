@@ -16,7 +16,7 @@ Every middleware shipped by `remix`, in canonical stack order (top runs first). 
 | 15 | `cop()`            | `remix/cop-middleware`             | Tokenless cross-origin protection via `Sec-Fetch-Site`/`Origin`. Cheap reject before session work. | [security](../security/SKILL.md) |
 | 20 | `compression()`    | `remix/compression-middleware`     | gzip/br encoding for text-like responses. | this skill |
 | 30 | `staticFiles(...)` | `remix/static-middleware`          | Serves `./public` and exits chain on hit. | this skill |
-| 40 | `formData({...})`  | `remix/form-data-middleware`       | Parses `multipart/form-data` and `application/x-www-form-urlencoded`; streams file uploads to a handler. | [forms-uploads](../forms-uploads/SKILL.md) |
+| 40 | `formData({...})`  | `remix/form-data-middleware`       | Parses `multipart/form-data` and `application/x-www-form-urlencoded`; streams file uploads to a handler. | [forms](../forms/SKILL.md) |
 | 50 | `methodOverride()` | `remix/method-override-middleware` | Promotes `_method=PUT/PATCH/DELETE` form field to the HTTP method. **After `formData`.** | this skill |
 | 60 | `session(...)`     | `remix/session-middleware`         | Loads + saves the session cookie. **Before auth and csrf.** | [sessions](../sessions/SKILL.md) |
 | 65 | `csrf()`           | `remix/csrf-middleware`            | Synchronizer-token CSRF validation. **After `session`** (token lives in session). | [security](../security/SKILL.md) |
@@ -93,4 +93,4 @@ A middleware is `(ctx, next) => Promise<Response>`. Set values on the context wi
 - [references/built-ins.md](./references/built-ins.md) — full options for every shipped middleware
 - [references/custom-middleware.md](./references/custom-middleware.md) — patterns for writing your own
 - [references/ordering.md](./references/ordering.md) — common ordering bugs, what comes before/after what
-- Sub-skills with their own deep doc: [security](../security/SKILL.md), [sessions](../sessions/SKILL.md), [auth](../auth/SKILL.md), [forms-uploads](../forms-uploads/SKILL.md)
+- Sub-skills with their own deep doc: [security](../security/SKILL.md), [sessions](../sessions/SKILL.md), [auth](../auth/SKILL.md), [forms](../forms/SKILL.md)

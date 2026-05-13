@@ -191,4 +191,4 @@ bun run scripts/create-migration.ts --name add_reviews_table
 - `references/ddl.md` — full DDL surface (createTable, alterTable, indexes, FKs)
 - `references/runner.md` — `up`, `down`, `status`, `latest`, target-version semantics
 - `references/strategies.md` — zero-downtime migration patterns (additive deploys, backfills, contracts)
-- See also: [data-table](../data-table/SKILL.md)
+- See also: [database](../database/SKILL.md)

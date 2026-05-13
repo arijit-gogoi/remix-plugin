@@ -121,4 +121,4 @@ function render(value: unknown) {
 ## Further reading
 
 - [`references/safe-html.md`](./references/safe-html.md) — full escape semantics, composition rules, common patterns
-- See also: [ui-framework](../ui-framework/SKILL.md) for JSX, [controllers](../controllers/SKILL.md) for the action context, [security](../security/SKILL.md) for `getCsrfToken`
+- See also: [ui](../ui/SKILL.md) for JSX, [controllers](../controllers/SKILL.md) for the action context, [security](../security/SKILL.md) for `getCsrfToken`

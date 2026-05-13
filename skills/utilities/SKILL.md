@@ -136,7 +136,7 @@ For BFF patterns where you want to forward selected routes to another origin wit
 
 ## What's NOT here (and where it lives)
 
-- **multipart-parser** — used by `formData()`. Direct usage covered in [forms-uploads](../forms-uploads/SKILL.md).
+- **multipart-parser** — used by `formData()`. Direct usage covered in [forms](../forms/SKILL.md).
 - **cookie** — signed cookies. See [cookies](../cookies/SKILL.md).
 - **route-pattern** — internal to fetch-router. Don't import directly.
 - **assert** — re-export of node's `assert/strict`. Use [testing](../testing/SKILL.md).

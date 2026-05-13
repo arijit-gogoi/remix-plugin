@@ -15,21 +15,22 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 |---|---|
 | Define URLs, params, nested routes, RESTful resources, form routes | [routing](../routing/SKILL.md) |
 | Write a `.tsx` controller, return responses, read context, params, FormData | [controllers](../controllers/SKILL.md) |
-| Talk to the database — tables, queries, joins, transactions, adapters | [data-table](../data-table/SKILL.md) |
+| Talk to the database — tables, queries, joins, transactions, adapters | [database](../database/SKILL.md) |
 | Validate input with `s.parse` / `f.object` / `.pipe(min, max, email)` | [validation](../validation/SKILL.md) |
 | Add login: credentials, Google/GitHub/Okta OAuth, requireAuth middleware | [auth](../auth/SKILL.md) |
 | Set up sessions, store user state, flash messages | [sessions](../sessions/SKILL.md) |
 | Configure cookies, signing, secret rotation | [cookies](../cookies/SKILL.md) |
 | Harden against CSRF, configure CORS, COP (tokenless cross-origin protection) | [security](../security/SKILL.md) |
 | Compose router middleware stack — reference card of every shipped middleware | [middlewares](../middlewares/SKILL.md) |
-| Parse forms (including file uploads), wire `parseFormData` / `formData()` | [forms-uploads](../forms-uploads/SKILL.md) |
+| Parse forms (including file uploads), wire `parseFormData` / `formData()` | [forms](../forms/SKILL.md) |
 | Persist uploaded files to disk, memory, or S3 | [file-storage](../file-storage/SKILL.md) |
-| Build pages, write JSX without React, use `renderToStream`, the Document shell | [ui-framework](../ui-framework/SKILL.md) |
+| Build pages, write JSX without React, use `renderToStream`, the Document shell | [ui](../ui/SKILL.md) |
 | Build HTML responses without JSX — safe-escaped `html\`...\`` template tag | [templating](../templating/SKILL.md) |
 | Parse / build typed HTTP headers — Accept, CacheControl, Cookie, Range, etc. | [headers](../headers/SKILL.md) |
 | Compile and serve browser JS/TS/CSS, set up the build pipeline (replaces Vite/esbuild) | [build](../build/SKILL.md) |
 | Write unit, integration, and Playwright e2e tests | [testing](../testing/SKILL.md) |
-| Bootstrap a new project, run `remix new` / `doctor` / `routes` | [scaffolding](../scaffolding/SKILL.md) |
+| Bootstrap a new project — `remix new` / `doctor` / `routes` / `test` / `version` / `completion` | [cli](../cli/SKILL.md) |
+| Add a single route, resource block, migration, or middleware to an existing project | [scaffolders](../scaffolders/SKILL.md) |
 | Define and apply schema migrations | [migrations](../migrations/SKILL.md) |
 | Find the smaller built-ins — mime, lazy-file, fs, tar, terminal, node-serve, fetch-proxy | [utilities](../utilities/SKILL.md) |
 
@@ -40,11 +41,11 @@ Before installing a third-party dep in a Remix v3 project, check whether Remix a
 | Reflex install | Use this instead | Where |
 |---|---|---|
 | Zod, Valibot, Yup | `remix/data-schema` — Standard Schema v1, so Zod/Valibot still drop in if you want | [validation](../validation/SKILL.md) |
-| Drizzle, Prisma, Kysely | `remix/data-table` + adapter (`-sqlite` / `-postgres` / `-mysql`) | [data-table](../data-table/SKILL.md) |
+| Drizzle, Prisma, Kysely | `remix/data-table` + adapter (`-sqlite` / `-postgres` / `-mysql`) | [database](../database/SKILL.md) |
 | NextAuth, Lucia, Auth.js | `remix/auth` + `remix/auth-middleware` (credentials + Google/GitHub/Microsoft/Okta/Auth0/X/Facebook/OIDC) | [auth](../auth/SKILL.md) |
 | iron-session, express-session | `remix/session` + `remix/session-middleware` (cookie / memory / fs / redis / memcache backends) | [sessions](../sessions/SKILL.md) |
 | cookie, cookie-signature | `remix/cookie` (signed, rotatable secrets) | [cookies](../cookies/SKILL.md) |
-| multer, busboy, formidable | `remix/form-data-parser` + `remix/multipart-parser` (streaming, no memory blow-up) | [forms-uploads](../forms-uploads/SKILL.md) |
+| multer, busboy, formidable | `remix/form-data-parser` + `remix/multipart-parser` (streaming, no memory blow-up) | [forms](../forms/SKILL.md) |
 | @aws-sdk/client-s3 (just for uploads), multer-s3 | `remix/file-storage-s3` (shared interface with fs/memory) | [file-storage](../file-storage/SKILL.md) |
 | express, fastify, hono | `remix/fetch-router` + `remix/node-fetch-server` | [routing](../routing/SKILL.md) · [controllers](../controllers/SKILL.md) |
 | csurf, lusca (CSRF) · helmet (security headers) · cors (CORS) | `remix/csrf-middleware` · `remix/cop-middleware` · `remix/cors-middleware` | [security](../security/SKILL.md) |
@@ -57,7 +58,7 @@ Before installing a third-party dep in a Remix v3 project, check whether Remix a
 | mime, mime-types, mime-db | `remix/mime` — detection + compressibility check | [utilities](../utilities/SKILL.md) |
 | tar, tar-stream | `remix/tar-parser` — streaming archive parser | [utilities](../utilities/SKILL.md) |
 | http-proxy, http-proxy-middleware | `remix/fetch-proxy` — `createFetchProxy` | [utilities](../utilities/SKILL.md) |
-| React (for the UI layer) | `remix/ui` JSX runtime + `remix/ui/<component>` library (accordion, button, combobox, menu, popover, select, …) | [ui-framework](../ui-framework/SKILL.md) |
+| React (for the UI layer) | `remix/ui` JSX runtime + `remix/ui/<component>` library (accordion, button, combobox, menu, popover, select, …) | [ui](../ui/SKILL.md) |
 
 The pattern: search `node_modules/remix/dist/` (or `npm view remix exports`) before adding a dep.
 

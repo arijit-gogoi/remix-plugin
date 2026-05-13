@@ -35,22 +35,23 @@ git clone https://github.com/arijit-gogoi/remix-plugin.git
 |-------|----------------|
 | **routing** | `route()`, `form()`, `resources()`, verb helpers, params, wildcards |
 | **controllers** | `Controller<typeof routes.X>`, actions, context, `get(Key)` |
-| **data-table** | tables, columns, queries, joins, transactions, adapters (SQLite/Postgres/MySQL) |
+| **database** | tables, columns, queries, joins, transactions, adapters (SQLite/Postgres/MySQL) |
 | **validation** | `s.parse` / `parseSafe`, `f.object`, validation checks, coercion — use this instead of installing Zod |
 | **auth** | credentials, Google/GitHub/Microsoft/Okta/Auth0 OAuth, `requireAuth` |
 | **sessions** | `Session`, storage backends (cookie/memory/fs/redis/memcache), flash |
 | **cookies** | `createCookie`, signing, secret rotation playbook |
 | **security** | CSRF (`csrf()`), Cross-Origin Protection (`cop()`), CORS (`cors()`) |
 | **middlewares** | reference card for every shipped middleware, canonical ordering |
-| **forms-uploads** | `parseFormData`, `uploadHandler`, multipart internals, limits |
+| **forms** | `parseFormData`, `uploadHandler`, multipart internals, limits |
 | **file-storage** | fs / memory / S3 backends |
-| **ui-framework** | JSX runtime, setup-then-render model, `renderToStream`, hydration |
+| **ui** | JSX runtime, setup-then-render model, `renderToStream`, hydration |
 | **templating** | `html\`...\`` safe-HTML template tag — for responses without JSX |
 | **headers** | typed parsers for Accept, CacheControl, Cookie, Range, etc. |
 | **build** | `createAssetServer` — on-demand JS/TS/CSS compilation (replaces Vite) |
 | **utilities** | reference card for mime, lazy-file, fs, tar-parser, terminal, node-serve, fetch-proxy |
 | **testing** | `remix/test`, `router.fetch`, mocks, e2e with Playwright |
-| **scaffolding** | `remix new` / `doctor` / `routes`, Bun scripts |
+| **cli** | official `remix` CLI: `new` / `doctor` / `routes` / `test` / `version` / `completion` |
+| **scaffolders** | this plugin's Bun scripts: `create-route`, `create-resource`, `create-migration`, `add-middleware`, etc. |
 | **migrations** | `createMigration`, DDL helpers, runner, zero-downtime strategies |
 
 Each sub-skill is a SKILL.md plus 2–4 progressive-disclosure references docs. Claude loads only what the current task needs.

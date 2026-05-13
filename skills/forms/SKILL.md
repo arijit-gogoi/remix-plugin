@@ -1,6 +1,6 @@
 ---
-name: remix-forms-uploads
-description: Form bodies and file uploads in Remix v3 — the formData() middleware, parseFormData() with custom uploadHandler, multipart-parser internals, file-size and file-count limits, and the FormData on context. Load when the user is wiring file uploads, customizing where uploads go, hitting MaxFileSizeExceededError, or building form-driven endpoints.
+name: remix-forms
+description: Form parsing and file uploads in Remix v3 — the formData() middleware, parseFormData() with custom uploadHandler, multipart-parser internals, file-size and file-count limits, and the FormData on context. Load when wiring forms, handling file uploads, customizing where uploads go, hitting MaxFileSizeExceededError, or building form-driven endpoints.
 ---
 
 # Forms & Uploads

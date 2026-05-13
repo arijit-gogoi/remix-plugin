@@ -1,6 +1,6 @@
 ---
-name: remix-ui-framework
-description: The Remix v3 UI framework — its own JSX runtime, components without React hooks (setup-then-render two-phase model), explicit re-renders via handle.update(), the Document shell, renderToStream / renderToString for SSR, and the css() utility for styles. Load when the user is building pages or components, configuring tsconfig for the Remix JSX runtime, or porting React code over.
+name: remix-ui
+description: The Remix v3 UI framework — its own JSX runtime, components without React hooks (setup-then-render two-phase model), explicit re-renders via handle.update(), the Document shell, renderToStream / renderToString for SSR, and the css() utility for styles. Load when building pages or components, configuring tsconfig for the Remix JSX runtime, working with JSX, or porting React code over.
 ---
 
 # UI Framework

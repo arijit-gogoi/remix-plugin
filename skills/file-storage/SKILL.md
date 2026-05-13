@@ -145,4 +145,4 @@ function quotaStorage(inner: FileStorage, quotaBytes: number): FileStorage {
 - `references/fs-backend.md` — filesystem layout, atomic rename, fs.permissions
 - `references/s3-backend.md` — pre-signed URLs, lifecycle rules, multi-region
 - `references/memory-backend.md` — when memory storage is the right call
-- See also: [forms-uploads](../forms-uploads/SKILL.md)
+- See also: [forms](../forms/SKILL.md)

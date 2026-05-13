@@ -1,6 +1,6 @@
 ---
-name: remix-data-table
-description: Database access in Remix v3 via the data-table package — defining tables and columns, building queries with the QueryBuilder, using the CRUD helpers (find/findOne/findMany/create/update/delete), transactions and savepoints, and wiring SQLite/Postgres/MySQL adapters. Load when the user is touching app/data/schema.ts, app/middleware/database.ts, or any code that reads/writes the database.
+name: remix-database
+description: Database access in Remix v3 via the data-table package — defining tables and columns, building queries with the QueryBuilder, using the CRUD helpers (find/findOne/findMany/create/update/delete), transactions and savepoints, and wiring SQLite/Postgres/MySQL adapters. Load when working with the database — schemas, queries, joins, transactions, adapters, app/data/schema.ts, app/middleware/database.ts, or any read/write code.
 ---
 
 # Data Table

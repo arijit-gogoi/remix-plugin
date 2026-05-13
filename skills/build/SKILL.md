@@ -151,4 +151,4 @@ Most Vite plugins won't transfer. The migration story:
 ## Further reading
 
 - [`references/asset-server.md`](./references/asset-server.md) — full `AssetServerOptions`, preload generation, source-map strategies
-- See also: [middlewares](../middlewares/SKILL.md) for `staticFiles`, [ui-framework](../ui-framework/SKILL.md) for client hydration, [scaffolding](../scaffolding/SKILL.md) for project bootstrap
+- See also: [middlewares](../middlewares/SKILL.md) for `staticFiles`, [ui](../ui/SKILL.md) for client hydration, [cli](../cli/SKILL.md) for project bootstrap
