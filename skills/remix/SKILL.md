@@ -25,6 +25,7 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 | Parse forms (including file uploads), wire `parseFormData` / `formData()` | [forms](../forms/SKILL.md) |
 | Persist uploaded files to disk, memory, or S3 | [file-storage](../file-storage/SKILL.md) |
 | Build pages, write JSX without React, use `renderToStream`, the Document shell | [ui](../ui/SKILL.md) |
+| Use shipped Accordion / Button / Combobox / Menu / Popover / Select / Glyph / animation / theme | [components](../components/SKILL.md) |
 | Build HTML responses without JSX — safe-escaped `html\`...\`` template tag | [templating](../templating/SKILL.md) |
 | Parse / build typed HTTP headers — Accept, CacheControl, Cookie, Range, etc. | [headers](../headers/SKILL.md) |
 | Compile and serve browser JS/TS/CSS, set up the build pipeline (replaces Vite/esbuild) | [build](../build/SKILL.md) |
@@ -59,7 +60,8 @@ Before installing a third-party dep in a Remix v3 project, check whether Remix a
 | mime, mime-types, mime-db | `remix/mime` — detection + compressibility check | [utilities](../utilities/SKILL.md) |
 | tar, tar-stream | `remix/tar-parser` — streaming archive parser | [utilities](../utilities/SKILL.md) |
 | http-proxy, http-proxy-middleware | `remix/fetch-proxy` — `createFetchProxy` | [utilities](../utilities/SKILL.md) |
-| React (for the UI layer) | `remix/ui` JSX runtime + `remix/ui/<component>` library (accordion, button, combobox, menu, popover, select, …) | [ui](../ui/SKILL.md) |
+| React (for the UI layer) | `remix/ui` JSX runtime | [ui](../ui/SKILL.md) |
+| Radix UI · Headless UI · shadcn/ui · Floating UI · Framer Motion · lucide-react | `remix/ui/<component>` — Accordion, Button, Combobox, Menu, Popover, Select, Glyph, animation, theme | [components](../components/SKILL.md) |
 
 The pattern: search `node_modules/remix/dist/` (or `npm view remix exports`) before adding a dep.
 

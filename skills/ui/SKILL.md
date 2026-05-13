@@ -179,6 +179,10 @@ The server renders the initial markup; `hydrate` wakes it up on the client witho
 | `className="x"`            | `mix={css({...})}` or `mix={cls('x')}`                    |
 | `React.memo`               | The framework doesn't re-render unless you call `update`  |
 
+## Component library
+
+For shipped primitives — Accordion, Button, Combobox, Menu, Popover, Select, Glyph, animation, theme — see [components](../components/SKILL.md). They use the same `Handle` + `mix` model as this page.
+
 ## Alternative: tagged HTML templates
 
 If you don't want the JSX runtime — small endpoints, emails, fragments returned to HTMX-style clients — use [templating](../templating/SKILL.md) (`html\`...\``). It composes safely (auto-escaped) without a component tree.

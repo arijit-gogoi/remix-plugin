@@ -45,6 +45,7 @@ git clone https://github.com/arijit-gogoi/remix-plugin.git
 | **forms** | `parseFormData`, `uploadHandler`, multipart internals, limits |
 | **file-storage** | fs / memory / S3 backends |
 | **ui** | JSX runtime, setup-then-render model, `renderToStream`, hydration |
+| **components** | shipped headless library — Accordion, Anchor, Breadcrumbs, Button, Combobox, Glyph, Listbox, Menu, Popover, Scroll Lock, Select, Separator, Animation, Theme; plus web-components interop |
 | **templating** | `html\`...\`` safe-HTML template tag — for responses without JSX |
 | **headers** | typed parsers for Accept, CacheControl, Cookie, Range, etc. |
 | **build** | `createAssetServer` — on-demand JS/TS/CSS compilation (replaces Vite) |
