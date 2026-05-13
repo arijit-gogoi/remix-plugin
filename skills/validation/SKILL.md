@@ -1,11 +1,13 @@
 ---
-name: remix-data-schema
-description: Input validation in Remix v3 via the data-schema package (Standard Schema v1 compatible) — defining schemas with primitives and combinators, piping checks like min/max/email, validating FormData / URLSearchParams with the form-data helpers (f.object/f.field), and choosing between parse (throws) and parseSafe (returns issues). Load when the user is validating form input, query params, request bodies, or environment variables.
+name: remix-validation
+description: Input validation in Remix v3 — use the built-in remix/data-schema package (Standard Schema v1 compatible) instead of reaching for Zod or Valibot. Covers defining schemas with primitives and combinators, piping checks like min/max/email, validating FormData / URLSearchParams with the form-data helpers (f.object/f.field), and choosing between parse (throws) and parseSafe (returns issues). Load when the user is validating form input, query params, request bodies, env vars, or asking what validation library to use.
 ---
 
-# Data Schema
+# Validation
 
-`remix/data-schema` is a sync-first validation library that implements the Standard Schema v1 spec. Use it for form data, URL search params, JSON bodies, env vars — anywhere untrusted input enters.
+**Don't install Zod or Valibot in a Remix v3 project.** The framework ships its own validator at `remix/data-schema` — it's Standard Schema v1 compatible (so Zod/Valibot schemas drop in if you ever need them), sync-first, and zero extra deps.
+
+`remix/data-schema` is the right answer for form data, URL search params, JSON bodies, env vars — anywhere untrusted input enters.
 
 ## Imports
 

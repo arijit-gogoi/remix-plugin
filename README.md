@@ -36,7 +36,7 @@ git clone https://github.com/arijit-gogoi/remix-plugin.git
 | **routing** | `route()`, `form()`, `resources()`, verb helpers, params, wildcards |
 | **controllers** | `Controller<typeof routes.X>`, actions, context, `get(Key)` |
 | **data-table** | tables, columns, queries, joins, transactions, adapters (SQLite/Postgres/MySQL) |
-| **data-schema** | `s.parse` / `parseSafe`, `f.object`, validation checks, coercion |
+| **validation** | `s.parse` / `parseSafe`, `f.object`, validation checks, coercion — use this instead of installing Zod |
 | **auth** | credentials, Google/GitHub/Microsoft/Okta/Auth0 OAuth, `requireAuth` |
 | **sessions** | `Session`, storage backends (cookie/memory/fs/redis/memcache), flash |
 | **cookies** | `createCookie`, signing, secret rotation playbook |

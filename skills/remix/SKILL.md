@@ -1,6 +1,6 @@
 ---
 name: remix
-description: Comprehensive Remix v3 reference covering routing, controllers, data-table, data-schema, auth, sessions, cookies, middleware, forms & uploads, file-storage, UI framework, testing, scaffolding, and migrations. Triggers on Remix v3 codebases (server.ts importing remix/node-fetch-server, app/routes.ts, app/router.ts, app/controllers/, package.json with the "remix" dep) and on /remix.
+description: Comprehensive Remix v3 reference covering routing, controllers, data-table, validation (data-schema), auth, sessions, cookies, middleware, forms & uploads, file-storage, UI framework, testing, scaffolding, and migrations. Triggers on Remix v3 codebases (server.ts importing remix/node-fetch-server, app/routes.ts, app/router.ts, app/controllers/, package.json with the "remix" dep) and on /remix.
 ---
 
 # Remix v3
@@ -16,7 +16,7 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 | Define URLs, params, nested routes, RESTful resources, form routes | [routing](../routing/SKILL.md) |
 | Write a `.tsx` controller, return responses, read context, params, FormData | [controllers](../controllers/SKILL.md) |
 | Talk to the database — tables, queries, joins, transactions, adapters | [data-table](../data-table/SKILL.md) |
-| Validate input with `s.parse` / `f.object` / `.pipe(min, max, email)` | [data-schema](../data-schema/SKILL.md) |
+| Validate input with `s.parse` / `f.object` / `.pipe(min, max, email)` | [validation](../validation/SKILL.md) |
 | Add login: credentials, Google/GitHub/Okta OAuth, requireAuth middleware | [auth](../auth/SKILL.md) |
 | Set up sessions, store user state, flash messages | [sessions](../sessions/SKILL.md) |
 | Configure cookies, signing, secret rotation | [cookies](../cookies/SKILL.md) |
@@ -27,6 +27,27 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 | Write unit, integration, and Playwright e2e tests | [testing](../testing/SKILL.md) |
 | Bootstrap a new project, run `remix new` / `doctor` / `routes` | [scaffolding](../scaffolding/SKILL.md) |
 | Define and apply schema migrations | [migrations](../migrations/SKILL.md) |
+
+## Don't reach for these — Remix bundles them
+
+Before installing a third-party dep in a Remix v3 project, check whether Remix already ships an equivalent. It almost always does, and the bundled version integrates with the rest of the framework (typed context, middleware, the same Standard Schema spec, etc.).
+
+| Reflex install | Use this instead | Where |
+|---|---|---|
+| Zod, Valibot, Yup | `remix/data-schema` — Standard Schema v1, so Zod/Valibot still drop in if you want | [validation](../validation/SKILL.md) |
+| Drizzle, Prisma, Kysely | `remix/data-table` + adapter (`-sqlite` / `-postgres` / `-mysql`) | [data-table](../data-table/SKILL.md) |
+| NextAuth, Lucia, Auth.js | `remix/auth` + `remix/auth-middleware` (credentials + Google/GitHub/Microsoft/Okta/Auth0/X/Facebook/OIDC) | [auth](../auth/SKILL.md) |
+| iron-session, express-session | `remix/session` + `remix/session-middleware` (cookie / memory / fs / redis / memcache backends) | [sessions](../sessions/SKILL.md) |
+| cookie, cookie-signature | `remix/cookie` (signed, rotatable secrets) | [cookies](../cookies/SKILL.md) |
+| multer, busboy, formidable | `remix/form-data-parser` + `remix/multipart-parser` (streaming, no memory blow-up) | [forms-uploads](../forms-uploads/SKILL.md) |
+| @aws-sdk/client-s3 (just for uploads), multer-s3 | `remix/file-storage-s3` (shared interface with fs/memory) | [file-storage](../file-storage/SKILL.md) |
+| express, fastify, hono | `remix/fetch-router` + `remix/node-fetch-server` | [routing](../routing/SKILL.md) · [controllers](../controllers/SKILL.md) |
+| compression, morgan, helmet (CSP/CSRF/CORS pieces) | `remix/compression-middleware` · `remix/logger-middleware` · `remix/cop-middleware` · `remix/csrf-middleware` · `remix/cors-middleware` | [middleware](../middleware/SKILL.md) |
+| serve-static, sirv | `remix/static-middleware` | [middleware](../middleware/SKILL.md) |
+| vitest, jest, supertest | `remix/test` + `remix/assert` (driven via `router.fetch(new Request(...))`) | [testing](../testing/SKILL.md) |
+| React (for the UI layer) | `remix/ui` JSX runtime + `remix/ui/<component>` library (accordion, button, combobox, menu, popover, select, …) | [ui-framework](../ui-framework/SKILL.md) |
+
+The pattern: search `node_modules/remix/dist/` (or `npm view remix exports`) before adding a dep.
 
 ## Mental model
 
