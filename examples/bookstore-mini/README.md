@@ -10,6 +10,10 @@ This is an *adapted slice* of the official `remix-run/remix/demos/bookstore`. It
 
 For the full bookstore experience (auth, password reset, order checkout, file uploads), see the official `demos/bookstore` in the remix-run/remix repository.
 
+## Verified vs inferred
+
+The patterns here (routes, controllers, middleware composition, `data-table` schema, session-backed cart, `data-schema` form validation via `parseSafe`) come straight from the upstream bookstore demo. A few small pieces — exact import paths for `redirect`, the `$inferRow` row type, the `coerce.boolean` behaviour on unchecked checkboxes — should be cross-checked against the installed `remix` package before this app is run for real. If a snippet doesn't compile, the framework's types are authoritative.
+
 ## Run
 
 ```pwsh

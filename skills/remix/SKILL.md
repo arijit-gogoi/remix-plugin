@@ -13,20 +13,20 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 
 | Need to … | Sub-skill |
 |---|---|
-| Define URLs, params, nested routes, RESTful resources, form routes | [routing](./routing/SKILL.md) |
-| Write a `.tsx` controller, return responses, read context, params, FormData | [controllers](./controllers/SKILL.md) |
-| Talk to the database — tables, queries, joins, transactions, adapters | [data-table](./data-table/SKILL.md) |
-| Validate input with `s.parse` / `f.object` / `.pipe(min, max, email)` | [data-schema](./data-schema/SKILL.md) |
-| Add login: credentials, Google/GitHub/Okta OAuth, requireAuth middleware | [auth](./auth/SKILL.md) |
-| Set up sessions, store user state, flash messages | [sessions](./sessions/SKILL.md) |
-| Configure cookies, signing, secret rotation | [cookies](./cookies/SKILL.md) |
-| Compose router middleware: logger, compression, staticFiles, methodOverride, asyncContext | [middleware](./middleware/SKILL.md) |
-| Parse forms (including file uploads), wire `parseFormData` / `formData()` | [forms-uploads](./forms-uploads/SKILL.md) |
-| Persist uploaded files to disk, memory, or S3 | [file-storage](./file-storage/SKILL.md) |
-| Build pages, write JSX without React, use `renderToStream`, the Document shell | [ui-framework](./ui-framework/SKILL.md) |
-| Write unit, integration, and Playwright e2e tests | [testing](./testing/SKILL.md) |
-| Bootstrap a new project, run `remix new` / `doctor` / `routes` | [scaffolding](./scaffolding/SKILL.md) |
-| Define and apply schema migrations | [migrations](./migrations/SKILL.md) |
+| Define URLs, params, nested routes, RESTful resources, form routes | [routing](../routing/SKILL.md) |
+| Write a `.tsx` controller, return responses, read context, params, FormData | [controllers](../controllers/SKILL.md) |
+| Talk to the database — tables, queries, joins, transactions, adapters | [data-table](../data-table/SKILL.md) |
+| Validate input with `s.parse` / `f.object` / `.pipe(min, max, email)` | [data-schema](../data-schema/SKILL.md) |
+| Add login: credentials, Google/GitHub/Okta OAuth, requireAuth middleware | [auth](../auth/SKILL.md) |
+| Set up sessions, store user state, flash messages | [sessions](../sessions/SKILL.md) |
+| Configure cookies, signing, secret rotation | [cookies](../cookies/SKILL.md) |
+| Compose router middleware: logger, compression, staticFiles, methodOverride, asyncContext | [middleware](../middleware/SKILL.md) |
+| Parse forms (including file uploads), wire `parseFormData` / `formData()` | [forms-uploads](../forms-uploads/SKILL.md) |
+| Persist uploaded files to disk, memory, or S3 | [file-storage](../file-storage/SKILL.md) |
+| Build pages, write JSX without React, use `renderToStream`, the Document shell | [ui-framework](../ui-framework/SKILL.md) |
+| Write unit, integration, and Playwright e2e tests | [testing](../testing/SKILL.md) |
+| Bootstrap a new project, run `remix new` / `doctor` / `routes` | [scaffolding](../scaffolding/SKILL.md) |
+| Define and apply schema migrations | [migrations](../migrations/SKILL.md) |
 
 ## Mental model
 

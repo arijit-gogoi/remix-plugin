@@ -59,3 +59,9 @@ The full official demos live at `remix-run/remix/demos/bookstore` and `remix-run
 - All imports use the `remix/<subpath>` form — never `@remix-run/<pkg>`.
 - All examples use Node ≥ 24.3.0 and `tsx` for the dev loop, matching the official bootstrap template.
 - Scaffolding scripts are written for Bun (`bun run scripts/<name>.ts`).
+
+## A note on accuracy
+
+Reference snippets and example code reflect the framework as Remix v3 stabilised. Some specific symbol signatures (operator helpers, return shapes, capability flags) describe the public surface as documented. Before relying on any specific snippet, verify against the installed package version — `npm view remix exports` and reading the `remix/<subpath>` types are the fastest ways to confirm.
+
+If you spot a divergence between this plugin and the installed framework, the framework wins. Open an issue or send a patch.
