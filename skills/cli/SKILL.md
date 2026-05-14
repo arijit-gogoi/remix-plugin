@@ -1,6 +1,6 @@
 ---
 name: remix-cli
-description: The official Remix v3 CLI — `remix new` (scaffold a project), `remix doctor` (health-check + auto-fix), `remix routes` (inspect the route tree), `remix test` (run tests), `remix version`, `remix completion` (shell completions). Includes `runRemix()` for programmatic invocation. Load when bootstrapping a new project, auditing project layout, dumping routes, generating shell completions, or wondering what the official CLI can do.
+description: The official `remix` CLI shipped by the framework — `remix new <name>` (scaffold a new project with `--app-name`), `remix doctor [--fix]` (health-check project against v3 conventions; auto-repair low-risk drift), `remix routes [--tree|--table|--json]` (inspect the typed route tree), `remix test [glob]` (run tests through the built-in runner), `remix version`, `remix completion bash|zsh` (shell completions). Programmatic API: `runRemix([...args])` from `remix/cli` (returns exit code). Load whenever the user is bootstrapping a new Remix v3 project from scratch, running `npx remix@next new`, asking what's in the bootstrap template, debugging project layout, diffing the route tree before/after a PR, generating shell completions, or comparing to `create-next-app`, `npm create vite`, `npm create vue`, Rails `bin/rails new`, or Laravel's `composer create-project`. For incremental scaffolders the official CLI doesn't ship (add one route, add one resource, add one migration, insert a middleware), see /remix:scaffolders.
 ---
 
 # CLI

@@ -1,6 +1,6 @@
 ---
 name: remix-templating
-description: HTML templating in Remix v3 via remix/html-template — the html`...` tagged literal with automatic XSS-safe escaping, html.raw for trusted fragments, composable SafeHtml values, and integration with createHtmlResponse for actions that return HTML directly without JSX. Load when the user is building responses that return HTML strings, writing email templates, generating server-side fragments, or wondering whether to use JSX vs templates.
+description: Server-side HTML templating in Remix v3 via `remix/html-template` — the `` html`...` `` tagged template literal with automatic XSS-safe escaping, `html.raw` for trusted fragments, composable `SafeHtml` branded values, the `isSafeHtml` type guard, and integration with `createHtmlResponse` from `remix/response/html` for endpoints that return HTML without spinning up the JSX runtime. Load whenever the user is building HTML responses without JSX (webhooks, RSS feeds, sitemaps, email bodies, OG/Twitter previews, HTMX fragments, server-rendered snippets), generating safe HTML from user input, composing reusable HTML helpers, deciding when to use JSX vs templates, or about to install `handlebars`, `ejs`, `mustache`, `pug`, `nunjucks`, `lit-html`, `escape-html`, `xss`, `sanitize-html`, `dompurify` (for server output). For full-page interactive UIs, use /remix:ui (JSX) instead.
 ---
 
 # Templating

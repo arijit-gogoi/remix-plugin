@@ -1,6 +1,6 @@
 ---
 name: remix-testing
-description: Testing in Remix v3 — the remix/test framework (describe/it/before/after, t.mock.fn, t.mock.method), remix/assert (preferred over node:assert), router-driven request/response tests via router.fetch(new Request(...)), createTestServer for HTTP-level tests, and Playwright e2e via t.serve(). Load when the user is writing or running tests, debugging test failures, or configuring `remix test`.
+description: Testing in Remix v3 via the built-in `remix/test` framework — `describe` / `it` / `beforeAll` / `afterAll` / `beforeEach` / `afterEach`, the test context `t` with `t.mock.fn()`, `t.mock.method()`, `t.mock.timers`, `t.after()`, `t.serve()`. Plus `remix/assert` (preferred over `node:assert/strict`), the canonical integration pattern of `router.fetch(new Request(...))` (no port binding, single-digit-ms tests), `createTestServer` from `remix/node-fetch-server/test` for HTTP-level tests, and Playwright e2e via `t.serve()` — pass a created server, get back a `Page`. Default discovery glob: `**/*.test{,.e2e}.{ts,tsx}`. Run with `remix test [glob]`. Load whenever the user is writing or running tests, debugging a test failure, setting up a `createTestRouter` helper with in-memory SQLite + memory session storage, mocking `globalThis.fetch` for an external API, configuring `remix test`, or about to install `vitest`, `jest`, `mocha`, `ava`, `supertest`, `@playwright/test`, `node:test` directly, or `msw` for fetch mocking. Tests run unbundled — they hit `router.fetch` directly with Web `Request`/`Response`.
 ---
 
 # Testing

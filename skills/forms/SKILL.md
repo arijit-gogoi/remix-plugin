@@ -1,6 +1,6 @@
 ---
 name: remix-forms
-description: Form parsing and file uploads in Remix v3 — the formData() middleware, parseFormData() with custom uploadHandler, multipart-parser internals, file-size and file-count limits, and the FormData on context. Load when wiring forms, handling file uploads, customizing where uploads go, hitting MaxFileSizeExceededError, or building form-driven endpoints.
+description: Form parsing and streaming file uploads in Remix v3 — `remix/form-data-middleware` (`formData({ uploadHandler, maxFileSize, maxFiles, maxFieldSize, maxFields, suppressErrors })`), `remix/form-data-parser` (`parseFormData(request, opts)`) for one-off endpoints, `remix/multipart-parser` (low-level streaming), the `FileUpload` shape passed to your `uploadHandler` (`.fieldName`, `.name`, `.type`, `.size`, `.stream()`, `.arrayBuffer()`), limit errors (`MaxFileSizeExceededError`, `MaxFilesExceededError`, `MaxFieldSizeExceededError`, `MaxFieldsExceededError`), and the `_method` field that the `methodOverride` middleware reads from parsed form bodies. Load whenever the user is wiring HTML forms with file uploads, customising where uploads go (disk / memory / S3), tightening per-route upload limits, streaming a large upload without buffering, hitting `MaxFileSizeExceededError`, building `<form enctype="multipart/form-data">`, or about to install `multer`, `busboy`, `formidable`, `express-fileupload`, `koa-multer`. For where the uploaded file ends up, see /remix:file-storage; for validating the form fields after parsing, see /remix:validation.
 ---
 
 # Forms & Uploads

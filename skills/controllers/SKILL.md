@@ -1,6 +1,6 @@
 ---
 name: remix-controllers
-description: Controllers in Remix v3 — how to write a Controller<typeof routes.X, AppContext> in a .tsx file, the action handler signature ({ get, params, request, url }), how to pull values from middleware-provided context (Database, Session, Auth, FormData), and how to return responses with render() or redirect(). Load when the user is creating, editing, or debugging files under app/controllers/.
+description: Controllers in Remix v3 — the `.tsx` files under `app/controllers/` that handle requests. Covers the `Controller<typeof routes.X, AppContext>` shape, action handler signatures (`{ get, params, request, url }`), reading middleware-provided values with `get(Database)` / `get(Session)` / `get(Auth)` / `get(FormData)`, returning responses via `render(<Page/>)` / `redirect(...)` / `Response.json(...)`, nested controllers, per-controller middleware (`requireAuth`, etc.), and the typed `routes.X.href(params)` URL builder. Load whenever the user is creating, editing, or debugging anything under `app/controllers/`, or comparing to Express route handlers / Next.js page+route handlers / Rails controllers / Hono handlers. Also load when the user asks "where does business logic go" or "how do I get the current user in an action".
 ---
 
 # Controllers

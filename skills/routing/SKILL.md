@@ -1,6 +1,6 @@
 ---
 name: remix-routing
-description: Routing in Remix v3 — how to define typed route maps with route(), form(), resources(), and verb helpers (get, post, put, del), how URL params are extracted, how nested routes compose, and how the central app/routes.ts contract drives the rest of the app. Load when the user is editing app/routes.ts, defining new URLs, organizing nested routes, building RESTful resources, or asking how a request finds its handler.
+description: Routing in Remix v3 — typed route maps in a single `app/routes.ts`, the helpers `route()`, `form()`, `resources()`, `resource()`, and verb helpers (`get`, `post`, `put`, `del`, `patch`, `head`, `options`), URL pattern syntax (named params `:slug`, wildcards `*path`, search constraints), nested routes, RESTful resources, and the typed `routes.X.href()` URL builder. Load whenever the user is editing `app/routes.ts`, adding a new URL, deciding between `form()` / `resources()` / a bare pattern, organising nested admin sections, debugging why a request doesn't match, or comparing Remix v3 routing against Express routes, React Router v6/v7, Next.js App Router, or Remix v2 file-based routing (Remix v3 is none of those). Also load on `app/router.ts` work when wiring `router.map()` calls.
 ---
 
 # Routing

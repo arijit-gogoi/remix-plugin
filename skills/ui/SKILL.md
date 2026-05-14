@@ -1,6 +1,6 @@
 ---
 name: remix-ui
-description: The Remix v3 UI framework — its own JSX runtime, components without React hooks (setup-then-render two-phase model), explicit re-renders via handle.update(), the Document shell, renderToStream / renderToString for SSR, and the css() utility for styles. Load when building pages or components, configuring tsconfig for the Remix JSX runtime, working with JSX, or porting React code over.
+description: The Remix v3 UI framework (`remix/ui`) — its own JSX runtime (NOT React, NOT Preact, NOT Solid). Components are `(handle: Handle<Props>) => () => RemixElement` — setup phase runs once, render phase runs on `handle.update()`. State is a plain `let` in the closure; no hooks, no signals, no proxies. DOM event listeners and styles attach via the `mix` prop using mixins (`on('click', fn)`, `css({...})`). `renderToStream` / `renderToString` from `remix/ui/server` for SSR, `<Frame>` boundaries for streaming with fallbacks, `hydrate` from `remix/ui/client` for islands. The shell is a project-local `Document` component plus a `render()` utility wrapping `renderToStream`. Load whenever the user is building pages / components / layouts, configuring `tsconfig` for the Remix JSX runtime (`jsxImportSource: 'remix/ui'`), wondering how to do state without `useState`, porting React (or Vue / Svelte / Solid) code, or asking "is this React?" (no). For the shipped component library — Button, Menu, Popover, Combobox, Glyph, animation, theme — see /remix:components. For server-side HTML without JSX, see /remix:templating.
 ---
 
 # UI Framework

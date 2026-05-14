@@ -1,6 +1,6 @@
 ---
 name: remix-sessions
-description: Sessions in Remix v3 — the Session interface, session() middleware setup, choosing a storage backend (cookie, filesystem, memory, redis, memcache), reading/writing keys, flash messages, and how sessions integrate with auth. Load when the user is configuring sessions, storing per-user state, adding flash messages, or debugging session persistence.
+description: Sessions in Remix v3 — `remix/session` + `remix/session-middleware`, the `Session` interface, `session()` middleware setup, picking a storage backend (cookie / memory / filesystem / Redis / memcache), reading and writing keys, **flash messages** (one-shot values cleared on next read — perfect for post-redirect-get error banners), session-id rotation via `completeAuth()`, and typed payloads via `Session<AppSession>`. Load whenever the user is configuring sessions, storing per-user state across requests (shopping cart, wizard state, "remember me", login redirect target, recently-viewed), adding flash error/success messages, debugging session persistence, choosing a session backend, or about to install `iron-session`, `express-session`, `cookie-session`, `next-session`, `koa-session`. Also load on questions like "where does the session middleware go in the stack?" or "how do I store cart items before login?".
 ---
 
 # Sessions

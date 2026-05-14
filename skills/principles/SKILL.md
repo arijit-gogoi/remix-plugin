@@ -1,6 +1,6 @@
 ---
 name: remix-principles
-description: The six principles guiding Remix v3 development — Model-First Development, Build on Web APIs, Religiously Runtime, Avoid Dependencies, Demand Composition, Distribute Cohesively. Load when explaining why the framework is shaped the way it is, when deciding whether a new feature/package fits the project, when reviewing a PR that adds a build step or a third-party dep, or when the user asks "why does Remix do X this way?".
+description: The six principles guiding Remix v3 development from remix.run/blog/wake-up-remix — **Model-First Development** (optimize source / docs / abstractions for LLMs), **Build on Web APIs** (Request/Response/FormData/URL everywhere, not Express's `req`/`res`), **Religiously Runtime** (no bundler-driven design, tests run without bundling), **Avoid Dependencies** (the goal is zero, wrap any survivors completely), **Demand Composition** (every package useful and documented standalone, new features start as new packages), **Distribute Cohesively** (one `remix` meta-package re-exports everything for a single learning curve). Load whenever the user is asking "why does Remix do X this way", reviewing a PR that adds a build step or a third-party dep, deciding whether a proposed feature fits, evaluating Remix against another framework's philosophy (Next.js, SvelteKit, Nuxt, Astro, Hono, Express), or weighing a design choice (own router vs Express, own validator vs Zod, JSX runtime vs React). Also load on questions like "is Remix opinionated?" or "why doesn't Remix use Vite?".
 ---
 
 # Principles

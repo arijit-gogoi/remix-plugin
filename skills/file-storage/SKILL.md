@@ -1,6 +1,6 @@
 ---
 name: remix-file-storage
-description: Storing uploaded files in Remix v3 — the file-storage backends (filesystem, memory, S3), the key/value interface (set, get, remove), and how to integrate with the form upload pipeline. Load when the user is persisting uploads, switching storage backends, or building file-download routes.
+description: Storing uploaded and generated files in Remix v3 via `remix/file-storage` — a key/value interface (`set`, `get`, `remove`, `has`) over three backends: `createFsFileStorage` (filesystem), `createMemoryFileStorage` (in-memory, for tests/dev), and `createS3FileStorage` (S3 / R2 / B2 / MinIO via `remix/file-storage-s3`). Same interface across all three, so swapping is config not code. Load whenever the user is persisting an upload to disk, S3, R2, Cloudflare R2, Backblaze B2, MinIO, or memory; designing where avatars / attachments / generated reports / cached PDFs live; building a file-download route; setting up dev (memory) vs prod (S3) storage; or about to install `multer-s3`, `@aws-sdk/client-s3` (just for uploads), `node:fs/promises` glue, or `formidable`'s disk write path. For the streaming upload pipeline that feeds into this, see /remix:forms.
 ---
 
 # File Storage
