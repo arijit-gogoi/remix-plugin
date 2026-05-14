@@ -1,6 +1,6 @@
 ---
 name: remix-cookies
-description: Cookies in Remix v3 — createCookie, signing with secrets array (and rotating them), parsing from request headers, serializing for response headers, attributes (httpOnly, secure, sameSite, maxAge, path, domain), and how the session middleware consumes a Cookie under the hood. Load when the user is setting or reading cookies directly, configuring the session cookie, or rotating cookie secrets.
+description: Cookies in Remix v3 via `remix/cookie` — the low-level building block sessions, auth, and CSRF build on. `createCookie(name, options)` for signed cookies (HMAC `secrets` array, rotation playbook), `parse(headerValue)` from incoming requests, `serialize(value, props?)` for `Set-Cookie` headers, plus attributes (`httpOnly`, `secure`, `sameSite: 'Lax' | 'Strict' | 'None'`, `maxAge`, `expires`, `path`, `domain`, `priority`, `partitioned`). Load whenever the user is reading/writing cookies directly (locale prefs, dark-mode flag, consent banner, A/B bucket, "remember me", feature flag), configuring the session cookie, rotating signing secrets, or debugging cookies missing in production (`secure: true` over HTTP, `SameSite` mismatch). For signed sessions see /remix:sessions; for the typed `Cookie` / `SetCookie` header parsers see /remix:headers.
 ---
 
 # Cookies
@@ -31,7 +31,7 @@ const sessionCookie = createCookie('__session', {
 | `secrets`  | Array of HMAC keys. First entry signs new cookies. Others verify old ones — that's how rotation works (prepend a new key, leave the old one for a transition window). |
 | `httpOnly` | Hides the cookie from JS — set to `true` for anything sensitive.          |
 | `secure`   | HTTPS-only. `true` in prod, `false` for local HTTP.                        |
-| `sameSite` | `'strict'` / `'lax'` / `'none'`. `'lax'` for top-level nav flows.          |
+| `sameSite` | `'Strict'` / `'Lax'` / `'None'` (capitalised per the type). `'Lax'` is the safe default for top-level nav flows. |
 | `maxAge`   | Seconds. Omit for a session cookie (dies with the browser).                |
 | `path`     | Defaults to `/`.                                                         |
 | `domain`   | Set for cross-subdomain cookies.                                          |

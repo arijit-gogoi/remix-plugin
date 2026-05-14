@@ -1,11 +1,13 @@
 ---
 name: remix-database
-description: Database access in Remix v3 via the data-table package — defining tables and columns, building queries with the QueryBuilder, using the CRUD helpers (find/findOne/findMany/create/update/delete), transactions and savepoints, and wiring SQLite/Postgres/MySQL adapters. Load when working with the database — schemas, queries, joins, transactions, adapters, app/data/schema.ts, app/middleware/database.ts, or any read/write code.
+description: Database access in Remix v3 via `remix/data-table` — the framework's built-in typed query layer. One API across SQLite, Postgres, and MySQL adapters; CRUD helpers (`find`, `findOne`, `findMany`, `create`, `update`, `delete`), a chainable QueryBuilder with joins/where/orderBy/limit/aggregations, transactions, savepoints, capability flags (`returning`, `upsert`, `transactionalDdl`, `migrationLock`), and relations (`hasMany`, `hasOne`, `belongsTo`, `hasManyThrough`). Load whenever the user mentions database, SQL, query, schema, table, column, migration-adjacent code, `app/data/schema.ts`, `app/middleware/database.ts`, or is about to install Drizzle / Prisma / Kysely / TypeORM / Sequelize. For schema evolution see /remix:migrations.
 ---
 
-# Data Table
+# Database
 
-`remix/data-table` is the typed relational query toolkit. One API, three adapters (SQLite, Postgres, MySQL), with capability flags (`returning`, `savepoints`, `upsert`, `transactionalDdl`) so the runtime can branch on what the dialect supports.
+`remix/data-table` is the typed relational query toolkit Remix v3 ships. One API across three adapters (SQLite / Postgres / MySQL), capability flags (`returning`, `savepoints`, `upsert`, `transactionalDdl`, `migrationLock`) so the runtime branches on what the dialect supports, and a single mental model — tables are values, queries are typed builders, the result is typed rows.
+
+**Don't reach for Drizzle, Prisma, Kysely, or TypeORM.** This is the bundled answer; it integrates with sessions, auth, migrations, and the request context out of the box.
 
 ## Imports
 

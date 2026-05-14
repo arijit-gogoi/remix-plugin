@@ -1,6 +1,6 @@
 ---
 name: remix-middlewares
-description: Reference card for every middleware shipped by Remix v3 — observability, performance, parsing, identity, security (csrf/cop/cors), request-scoped context, and HTTP semantics. One line per middleware with the import path, canonical position in the stack, and a pointer to the deep doc for whichever ones the task needs. Load when composing the middleware stack, choosing between similar middlewares (cop vs csrf, logger vs custom), or trying to remember what Remix ships out of the box.
+description: Reference card for every middleware shipped by Remix v3 — `logger`, `compression`, `staticFiles`, `formData`, `methodOverride`, `session`, `csrf`, `cop`, `cors`, `asyncContext`, `auth`, `requireAuth` — with canonical stack ordering and pointers to deep docs. Plus the contract for writing your own. Load whenever the user is composing or editing the middleware stack in `app/router.ts`, debugging request flow, choosing between similar middlewares (`cop` vs `csrf`, custom vs built-in), or about to install Express middlewares (helmet, morgan, body-parser, cookie-parser, multer) — Remix already ships equivalents. Also load if the user asks "what middleware comes with Remix?" or "where does X go in the stack?".
 ---
 
 # Middlewares

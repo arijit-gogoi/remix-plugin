@@ -1,6 +1,6 @@
 ---
 name: remix
-description: Comprehensive Remix v3 reference covering routing, controllers, data-table, validation (data-schema), auth, sessions, cookies, middleware, forms & uploads, file-storage, UI framework, testing, scaffolding, and migrations. Triggers on Remix v3 codebases (server.ts importing remix/node-fetch-server, app/routes.ts, app/router.ts, app/controllers/, package.json with the "remix" dep) and on /remix.
+description: Comprehensive Remix v3 reference and entry point for the whole `/remix:*` skill family. Use whenever the user is working in a Remix v3 codebase, setting one up, asking how the framework handles X, comparing it to v2 / React Router / Next.js / Express / Hono, or about to install a third-party dep that Remix already ships. Detects Remix v3 from `server.ts` importing from `remix/node-fetch-server`, the presence of `app/routes.ts` + `app/router.ts` + `app/controllers/`, or `package.json` declaring the `remix` dep. Also triggers on `/remix`. Lean on this aggressively — Remix v3 is unlike both Remix v2 and React, so guesses are usually wrong.
 ---
 
 # Remix v3

@@ -1,6 +1,6 @@
 ---
 name: remix-auth
-description: Authentication (identity) in Remix v3 — credentials (email/password) flows, external OAuth/OIDC (Google, GitHub, Okta, Auth0, Microsoft, X, Facebook, Atmosphere), the auth() and requireAuth() middleware, createSessionAuthScheme, session-fixation-safe completeAuth(). For CSRF, COP, and CORS, see the security sub-skill. Load when the user is building login/signup, adding social providers, protecting routes, or debugging auth flows.
+description: Authentication in Remix v3 — login forms, signup, password verification, password reset flows, "remember me", OAuth/OIDC providers (Google, GitHub, Microsoft, Okta, Auth0, X, Facebook, Atmosphere, generic OIDC), bearer-token API auth, and route protection. Covers `remix/auth` primitives (`verifyCredentials`, `startExternalAuth`, `finishExternalAuth`, `completeAuth`, the `createXxxAuthProvider` family) and `remix/auth-middleware` (`auth()`, `requireAuth()`, `createSessionAuthScheme`, `createBearerAuthScheme`). Load whenever the user mentions login, signup, OAuth, social login, JWT, session-based auth, "current user", route guards, role checks, or replacing NextAuth / Lucia / Auth.js / Passport / Clerk. For CSRF, COP, and CORS see /remix:security; for the session machinery see /remix:sessions.
 ---
 
 # Auth
@@ -61,20 +61,26 @@ export const passwordProvider = createCredentialsAuthProvider({
 })
 ```
 
-The login action:
+The login action takes the request context directly — `verifyCredentials` and `completeAuth` read from it, and you flash error state through the session:
 
 ```ts
 // app/controllers/auth/login.ts
-export async function login({ get, request }: ActionArgs) {
-  const context = /* current context */
+import type { RequestContext } from 'remix/fetch-router'
+import { verifyCredentials, completeAuth } from 'remix/auth'
+import { Session } from 'remix/session'
+import { redirect } from 'remix/response/redirect'
+
+import { routes } from '../../routes.ts'
+import { passwordProvider } from '../../auth/password-provider.ts'
+
+export async function login(ctx: RequestContext) {
   try {
-    const user = await verifyCredentials(passwordProvider, context)
-    const session = completeAuth(context)
+    const user = await verifyCredentials(passwordProvider, ctx)
+    const session = completeAuth(ctx)             // rotates the session id
     session.set('auth', { userId: user.id, loginMethod: 'credentials' })
     return redirect(routes.account.index.href())
   } catch {
-    const session = get(Session)
-    session.flash('error', 'Invalid email or password')
+    ctx.get(Session).flash('error', 'Invalid email or password')
     return redirect(routes.auth.login.index.href())
   }
 }
@@ -100,31 +106,39 @@ export const googleProvider = createGoogleAuthProvider({
 
 ```ts
 // app/controllers/auth/google/controller.ts
+import type { Controller, RequestContext } from 'remix/fetch-router'
+import { startExternalAuth, finishExternalAuth, completeAuth } from 'remix/auth'
+import { Database } from 'remix/data-table'
+import { redirect } from 'remix/response/redirect'
+
+import { routes } from '../../../routes.ts'
+import { users } from '../../../data/schema.ts'
+import { googleProvider } from '../../../auth/google-provider.ts'
+
 export default {
   actions: {
-    async login({ /* context */ }) {
-      return await startExternalAuth(googleProvider, context, {
-        returnTo: '/account',
-      })
+    login(ctx: RequestContext) {
+      return startExternalAuth(googleProvider, ctx, { returnTo: '/account' })
     },
-    async callback({ get }) {
-      const { result, returnTo } = await finishExternalAuth(googleProvider, context)
-      const db = get(Database)
+
+    async callback(ctx: RequestContext) {
+      const { result, returnTo } = await finishExternalAuth(googleProvider, ctx)
+      const db = ctx.get(Database)
 
       const authAccount = await upsertGoogleAccount(db, result)
       const user = await db.find(users, authAccount.user_id)
       if (!user) return new Response('User missing', { status: 500 })
 
-      const session = completeAuth(context)
+      const session = completeAuth(ctx)
       session.set('auth', {
-        userId:         user.id,
-        loginMethod:    result.provider,
-        authAccountId:  authAccount.id,
+        userId:        user.id,
+        loginMethod:   result.provider,
+        authAccountId: authAccount.id,
       })
       return redirect(returnTo ?? routes.account.index.href())
     },
   },
-}
+} satisfies Controller<typeof routes.auth.google>
 ```
 
 ## Session auth scheme — wiring identity into requests

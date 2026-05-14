@@ -1,6 +1,6 @@
 ---
 name: remix-components
-description: The shipped `remix/ui/<component>` library — Accordion, Anchor, Breadcrumbs, Button, Combobox, Glyph, Listbox, Menu, Popover, Scroll Lock, Select, Separator, Animation primitives, and Theme. Headless / mixin-based primitives that compose with the Remix JSX runtime, no React. Also covers using plain custom elements (web components) alongside them. Load when picking a button, dropdown, popover, breadcrumb, accordion, icon, animation, or theme primitive; or when wondering whether to install Radix / shadcn / Headless UI / Floating UI / Framer Motion (don't — these replace all of them).
+description: The shipped `remix/ui/<component>` headless library — Accordion, Anchor (positioning), Breadcrumbs, Button, Combobox, Glyph (icons), Listbox, Menu (dropdown / context), Popover (with focus management), Scroll Lock, Select, Separator, Animation (entrance / exit / layout / spring / tween), and Theme (CSS variables + design tokens). Plus first-class web-components interop — bring in third-party custom elements (Shoelace, Lit, Web Awesome) or author your own. Load whenever the user needs a button, dropdown, modal, tooltip, popover, autocomplete, breadcrumb, accordion, icon, animation, color tokens, dark/light theme, or is about to install Radix UI / shadcn/ui / Headless UI / Floating UI / Framer Motion / lucide-react / heroicons / react-select / body-scroll-lock. Also load on questions like "how do I do a tooltip in Remix?" or "what's the equivalent of Radix Popover?".
 ---
 
 # Components

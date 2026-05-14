@@ -1,6 +1,6 @@
 ---
 name: remix-security
-description: Cross-origin and request-provenance security in Remix v3 — CSRF protection (csrf-middleware, synchronizer tokens + origin validation), Cross-Origin Protection (cop-middleware, tokenless via Sec-Fetch-Site / Origin), and CORS (cors-middleware, preflight + credentialed responses). Load when hardening forms, allowing or rejecting cross-origin requests, configuring browser security headers, building public APIs, or deciding between csrf() and cop().
+description: Cross-origin security in Remix v3 — CSRF protection (`csrf()` synchronizer tokens + origin validation), tokenless cross-origin defence (`cop()` via `Sec-Fetch-Site`/`Origin`), and CORS (`cors()` preflight handling + credentialed responses + allowed origins). Load whenever the user mentions CSRF, XSRF, cross-origin, CORS, `Sec-Fetch-Site`, `Access-Control-Allow-*`, preflight, public API consumed by browsers from another origin, hardening forms, or is about to install csurf / lusca / helmet / cors. Also load when the user asks "do I need CSRF if I have SameSite cookies?" or is deciding between `csrf()` and `cop()`. For session machinery see /remix:sessions; for identity see /remix:auth.
 ---
 
 # Security
