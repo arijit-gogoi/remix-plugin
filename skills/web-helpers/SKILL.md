@@ -1,9 +1,9 @@
 ---
-name: remix-utilities
-description: Reference card for the smaller utility packages Remix v3 bundles — `remix/mime` (`detectContentType` from filename, `isCompressibleMimeType`, `defineMimeType`), `remix/lazy-file` (`LazyFile` / `LazyBlob` — File-shaped objects that defer reading), `remix/fs` (`openLazyFile`, `writeFile` returning `LazyFile`), `remix/tar-parser` (streaming `parseTar`, `TarParser`), `remix/terminal` (`ansi`, `stripAnsi`, `createStyles`, `shouldUseColors` — replaces chalk), `remix/node-serve` (uWebSockets.js-backed alternative to `node-fetch-server`), `remix/fetch-proxy` (`createFetchProxy` for BFF / reverse-proxy patterns). Also points at the larger utility surfaces with their own sub-skills (templating, headers, build). Load whenever the user is detecting a content type from a filename, streaming a large file without buffering, parsing a tar archive (npm tarballs, CI artifacts), styling terminal output for a CLI / scaffolder, building a reverse proxy or BFF, picking a high-perf alternative server, or about to install `mime` / `mime-types`, `chalk` / `kleur` / `picocolors`, `tar` / `tar-stream`, `http-proxy` / `http-proxy-middleware`, `fs-extra`. Quick check before adding any "small utility" npm dep.
+name: remix-web-helpers
+description: Small built-in helpers in Remix v3 that replace popular single-purpose npm packages — detecting MIME types from filenames (replaces `mime` / `mime-types`), streaming large files as `LazyFile` / `LazyBlob` without buffering, parsing tar archives (replaces `tar` / `tar-stream`), styling terminal output with ANSI (replaces `chalk` / `kleur` / `picocolors`), running a high-performance uWebSockets-backed server as an alternative to `node-fetch-server`, building reverse-proxy / BFF endpoints with `createFetchProxy` (replaces `http-proxy` / `http-proxy-middleware`), and `node:fs` wrappers that return `LazyFile`. Packages: `remix/mime`, `remix/lazy-file`, `remix/fs`, `remix/tar-parser`, `remix/terminal`, `remix/node-serve`, `remix/fetch-proxy`. **Always check here before adding any small utility npm dep** — chances are Remix ships it.
 ---
 
-# Utilities
+# Web Helpers
 
 The small built-ins Remix ships besides middlewares and routing. Each is a focused library — table first, deep doc as needed.
 

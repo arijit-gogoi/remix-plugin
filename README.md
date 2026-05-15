@@ -49,7 +49,7 @@ git clone https://github.com/arijit-gogoi/remix-plugin.git
 | **templating** | `html\`...\`` safe-HTML template tag — for responses without JSX |
 | **headers** | typed parsers for Accept, CacheControl, Cookie, Range, etc. |
 | **build** | `createAssetServer` — on-demand JS/TS/CSS compilation (replaces Vite) |
-| **utilities** | reference card for mime, lazy-file, fs, tar-parser, terminal, node-serve, fetch-proxy |
+| **web-helpers** | small built-ins that replace popular npm helpers — mime, lazy-file, fs, tar-parser, terminal, node-serve, fetch-proxy |
 | **testing** | `remix/test`, `router.fetch`, mocks, e2e with Playwright |
 | **cli** | official `remix` CLI: `new` / `doctor` / `routes` / `test` / `version` / `completion` |
 | **scaffolders** | this plugin's Bun scripts: `create-route`, `create-resource`, `create-migration`, `add-middleware`, etc. |

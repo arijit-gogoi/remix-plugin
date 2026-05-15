@@ -33,7 +33,7 @@ Each topic below has its own SKILL.md in `skills/<name>/`. Load only what the cu
 | Bootstrap a new project — `remix new` / `doctor` / `routes` / `test` / `version` / `completion` | [cli](../cli/SKILL.md) |
 | Add a single route, resource block, migration, or middleware to an existing project | [scaffolders](../scaffolders/SKILL.md) |
 | Define and apply schema migrations | [migrations](../migrations/SKILL.md) |
-| Find the smaller built-ins — mime, lazy-file, fs, tar, terminal, node-serve, fetch-proxy | [utilities](../utilities/SKILL.md) |
+| Find the smaller built-ins that replace npm helpers — mime, lazy-file, fs, tar, terminal, node-serve, fetch-proxy | [web-helpers](../web-helpers/SKILL.md) |
 | Explain the framework's design — Model-First, Web APIs, Runtime, Dependencies, Composition, Cohesion | [principles](../principles/SKILL.md) |
 
 ## Don't reach for these — Remix bundles them
@@ -56,10 +56,10 @@ Before installing a third-party dep in a Remix v3 project, check whether Remix a
 | Vite, esbuild, webpack, parcel | `remix/assets` — `createAssetServer` compiles on demand, no separate build step | [build](../build/SKILL.md) |
 | handlebars, ejs, mustache, lit-html (server-side HTML strings) | `remix/html-template` — `html\`...\`` with auto-escaping | [templating](../templating/SKILL.md) |
 | accepts, negotiator, cache-control-parser, range-parser, set-cookie-parser | `remix/headers` — typed parsers for every RFC header | [headers](../headers/SKILL.md) |
-| chalk, kleur, picocolors, ansi-styles | `remix/terminal` — ANSI styling + color detection | [utilities](../utilities/SKILL.md) |
-| mime, mime-types, mime-db | `remix/mime` — detection + compressibility check | [utilities](../utilities/SKILL.md) |
-| tar, tar-stream | `remix/tar-parser` — streaming archive parser | [utilities](../utilities/SKILL.md) |
-| http-proxy, http-proxy-middleware | `remix/fetch-proxy` — `createFetchProxy` | [utilities](../utilities/SKILL.md) |
+| chalk, kleur, picocolors, ansi-styles | `remix/terminal` — ANSI styling + color detection | [web-helpers](../web-helpers/SKILL.md) |
+| mime, mime-types, mime-db | `remix/mime` — detection + compressibility check | [web-helpers](../web-helpers/SKILL.md) |
+| tar, tar-stream | `remix/tar-parser` — streaming archive parser | [web-helpers](../web-helpers/SKILL.md) |
+| http-proxy, http-proxy-middleware | `remix/fetch-proxy` — `createFetchProxy` | [web-helpers](../web-helpers/SKILL.md) |
 | React (for the UI layer) | `remix/ui` JSX runtime | [ui](../ui/SKILL.md) |
 | Radix UI · Headless UI · shadcn/ui · Floating UI · Framer Motion · lucide-react | `remix/ui/<component>` — Accordion, Button, Combobox, Menu, Popover, Select, Glyph, animation, theme | [components](../components/SKILL.md) |
 
